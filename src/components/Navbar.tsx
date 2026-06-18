@@ -15,6 +15,8 @@ const navLinks = [
   {
     name: 'About Us',
     content: [
+      { name: 'Overview', path: '/about/overview' },
+      { name: 'Welcome Address', path: '/about/welcome-address' },
       { name: 'History', path: '/about/history' },
       { name: 'Vision, Mission & Core Values', path: '/about/vision' },
     ],

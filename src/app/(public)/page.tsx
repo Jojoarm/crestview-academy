@@ -20,8 +20,8 @@ export default function Home() {
         imageAlt="Crestview Academy founding"
         eyebrow="Our History"
         heading="Three Decades of Shaping Lives"
-        description="Founded in 1994, Crestview Academy began as a small nursery school with a powerful belief that every child deserves a world-class education."
-        cta={{ label: 'Learn More', href: '/about/history' }}
+        description="Founded in 1992, Crestview Academy began as a small nursery school with a powerful belief, that every child deserves a world class education regardless of where they grow up. Today that belief has grown into a full K-12 institution trusted by families across Lagos State and beyond."
+        cta={{ label: 'Read Our Story', href: '/about/history' }}
       />
     </>
   );

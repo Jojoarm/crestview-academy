@@ -42,7 +42,7 @@ export default function WelcomeSection() {
           <div className="flex items-center gap-4 mb-10 pt-2">
             <div className="w-10 h-10 rounded-full bg-terracotta-pale flex items-center justify-center shrink-0">
               <span className="font-heading text-primary font-bold text-sm">
-                CA
+                AO
               </span>
             </div>
             <div>

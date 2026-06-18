@@ -36,7 +36,7 @@ export default function FeatureCard({
     >
       {/* ── Image ── */}
       <div
-        className={`relative w-full h-64 sm:h-80 lg:h-[480px] overflow-hidden ${
+        className={`relative w-full h-64 sm:h-80 lg:h-120 overflow-hidden ${
           flip ? 'lg:order-2' : 'lg:order-1'
         }`}
       >
