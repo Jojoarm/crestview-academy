@@ -51,7 +51,7 @@ export default function Hero() {
               <ArrowRight className="size-4" />
             </Link>
             <Link
-              href="/about"
+              href="/about/overview"
               className="w-full sm:w-auto inline-flex items-center justify-center gap-2 border border-white/60 hover:border-white text-white font-body font-medium text-sm px-8 py-3.5 transition-colors duration-200 tracking-wide hover:bg-white/10"
             >
               Discover More

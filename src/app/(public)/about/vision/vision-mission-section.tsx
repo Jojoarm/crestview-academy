@@ -4,6 +4,7 @@ import { cn } from '@/lib/utils';
 
 const blocks = [
   {
+    id: 'vision',
     eyebrow: 'Our Vision',
     heading: 'A Future Built on\nExcellence',
     body: [
@@ -24,6 +25,7 @@ const blocks = [
     flip: false,
   },
   {
+    id: 'mission',
     eyebrow: 'Our Mission',
     heading: 'Nurturing Minds,\nBuilding Character',
     body: [
@@ -86,6 +88,7 @@ export default function VisionMissionSection() {
         <div className="w-full flex flex-col gap-24 md:gap-32">
           {blocks.map((block, index) => (
             <div
+              id={block.id}
               key={index}
               className={cn(
                 'grid grid-cols-1 lg:grid-cols-2 gap-12 xl:gap-20 items-center',

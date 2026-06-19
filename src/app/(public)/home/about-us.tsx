@@ -36,7 +36,7 @@ const blocks = [
         alt: 'Crestview Academy campus',
       },
     ],
-    link: '/about/vision',
+    link: '/about/vision/#vision',
     flip: true,
   },
   {
@@ -53,7 +53,7 @@ const blocks = [
         alt: 'Crestview Academy graduation',
       },
     ],
-    link: '/about/mission',
+    link: '/about/vision/#mission',
     flip: false,
   },
 ];

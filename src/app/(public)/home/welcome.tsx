@@ -57,7 +57,7 @@ export default function WelcomeSection() {
 
           {/* CTA */}
           <Link
-            href="/about/vision"
+            href="/about/welcome-address"
             className="self-start inline-flex items-center gap-2 bg-primary hover:bg-accent text-white font-body font-medium text-sm px-7 py-3.5 transition-colors duration-200 tracking-wide"
           >
             Read More
