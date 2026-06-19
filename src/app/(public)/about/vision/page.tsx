@@ -16,11 +16,14 @@ export default function VisionPage() {
 
       <FeatureCard
         image="/assets/img-optimized/crestview-hero-01.webp"
-        imageAlt="Crestview Academy history"
-        eyebrow="Our History"
-        heading="See How These Values Took Shape"
-        description="Our vision and values were not written overnight, they were forged over three decades of growth, challenges, and an unwavering commitment to every child who walked through our gates."
-        cta={{ label: 'Explore Our History', href: '/about/history' }}
+        imageAlt="Why choose Crestview Academy"
+        eyebrow="Why Choose Us"
+        heading="An Education Built Around Every Child"
+        description="At Crestview Academy, we combine academic excellence with character development, a safe learning environment, and dedicated educators who are committed to helping every child reach their full potential."
+        cta={{
+          label: 'Discover What Sets Us Apart',
+          href: '/admissions/why-crestview',
+        }}
       />
     </main>
   );

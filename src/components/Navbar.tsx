@@ -32,6 +32,16 @@ const navLinks = [
     ],
   },
   {
+    name: 'Student Life',
+    content: [
+      { name: 'Overview', path: '/student-life/overview' },
+      { name: 'Kindergarten', path: '/student-life/kindergarten' },
+      { name: 'Nursery', path: '/student-life/nursery' },
+      { name: 'Primary', path: '/student-life/primary' },
+      { name: 'Secondary', path: '/student-life/secondary' },
+    ],
+  },
+  {
     name: 'Academics',
     content: [
       { name: 'Our Curriculum', path: '/academics/curriculum' },

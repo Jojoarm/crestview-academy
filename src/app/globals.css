@@ -96,6 +96,10 @@
   .section-pad-header {
     @apply pt-28 pb-6 md:pt-32 md:pb-10 lg:pt-36 lg:pb-18 px-6 md:px-10 lg:px-16;
   }
+
+  .image-border {
+    @apply shadow-md border border-card shadow-gray-200;
+  }
 }
 
 @layer base {

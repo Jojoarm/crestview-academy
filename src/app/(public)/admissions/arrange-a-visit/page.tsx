@@ -22,11 +22,14 @@ export default function ArrangeVisitPage() {
 
       <FeatureCard
         image="/assets/img-optimized/crestview-hero-05.webp"
-        imageAlt="Crestview Academy admissions"
-        eyebrow="Admissions"
-        heading="Ready to Take the Next Step?"
-        description="Once you've had a chance to visit and ask your questions, applying is simple. Start your child's application online in just a few minutes."
-        cta={{ label: 'Apply Online', href: '/admissions/apply' }}
+        imageAlt="Student life at Crestview Academy"
+        eyebrow="Student Life"
+        heading="More Than a Classroom Experience"
+        description="From sports and creative arts to leadership opportunities and school events, student life at Crestview Academy is designed to help every learner build confidence, discover their talents, and create lasting memories."
+        cta={{
+          label: 'Explore Student Life',
+          href: '/student-life/overview',
+        }}
         flip={true}
       />
     </main>
