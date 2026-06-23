@@ -6,7 +6,7 @@ export default function AdmissionProcessPage() {
   return (
     <main>
       <PageHero
-        image="/assets/img-optimized/crestview-hero-03.webp"
+        image="/assets/img-optimized/admission-process-hero.webp"
         eyebrow="Admissions"
         heading="Admission Process"
         description="A clear, guided path from your first enquiry to your child's first day at Crestview Academy."
@@ -15,8 +15,8 @@ export default function AdmissionProcessPage() {
       <AdmissionProcessSection />
 
       <FeatureCard
-        image="/assets/img-optimized/crestview-hero-06.webp"
-        imageAlt="Crestview Academy application form"
+        image="/assets/img-optimized/admission-process-hero.webp"
+        imageAlt="Crestview Academy application process"
         eyebrow="Ready to Apply"
         heading="Begin Your Child's Journey With Us Today"
         description="Now that you know what to expect, take the first step. Our admissions team is ready to guide you through every part of the process."

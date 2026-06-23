@@ -12,7 +12,7 @@ export default function SecondaryPage() {
   return (
     <main>
       <PageHero
-        image="/assets/img-optimized/crestview-hero-04.webp"
+        image="/assets/img-optimized/student-life-secondary-hero.webp"
         eyebrow="Student Life"
         heading="Secondary School"
         description="Preparing students for excellence in WAEC, NECO, higher education, and life beyond the classroom."

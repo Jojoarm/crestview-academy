@@ -140,7 +140,7 @@ export default function StudentLifeOverviewSection() {
             </p>
             <div className="relative w-full h-72 overflow-hidden">
               <Image
-                src="/assets/img-optimized/crestview-hero-04.webp"
+                src="/assets/img-optimized/student-learning-03.webp"
                 alt="A day at Crestview Academy"
                 fill
                 className="object-cover"

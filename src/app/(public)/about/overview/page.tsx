@@ -6,7 +6,7 @@ export default function OverviewPage() {
   return (
     <main>
       <PageHero
-        image="/assets/img-optimized/crestview-hero-05.webp"
+        image="/assets/img-optimized/about-us-hero-02.webp"
         eyebrow="About Us"
         heading="Shaping Futures Since 1992"
         description="Discover the story, values, and people behind one of Lagos State's most trusted academic institutions."
@@ -16,7 +16,7 @@ export default function OverviewPage() {
       <OverviewSection />
 
       <FeatureCard
-        image="/assets/img-optimized/crestview-hero-02.webp"
+        image="/assets/img-optimized/students-relaxing.webp"
         imageAlt="Crestview Academy students"
         eyebrow="Admissions"
         heading="Ready to Join the Crestview Family?"

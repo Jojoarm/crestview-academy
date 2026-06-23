@@ -6,7 +6,7 @@ export default function StudentLifeOverviewPage() {
   return (
     <main>
       <PageHero
-        image="/assets/img-optimized/crestview-hero-06.webp"
+        image="/assets/img-optimized/student-life-overview-hero.webp"
         eyebrow="Student Life"
         heading="Life at Crestview"
         description="From a child's first day in Kindergarten to their final exams in SS3, every stage of the Crestview journey is designed to nurture, challenge, and inspire."

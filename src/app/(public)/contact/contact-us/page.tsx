@@ -12,7 +12,7 @@ export default function ContactUsPage() {
   return (
     <main>
       <PageHero
-        image="/assets/img-optimized/crestview-hero-06.webp"
+        image="/assets/img-optimized/contact-us-page-hero.webp"
         eyebrow="Contact"
         heading="Contact Us"
         description="A question, a concern, or just curious about Crestview, our team is always happy to hear from you."
@@ -21,7 +21,7 @@ export default function ContactUsPage() {
       <ContactSection />
 
       <FeatureCard
-        image="/assets/img-optimized/crestview-hero-03.webp"
+        image="/assets/img-optimized/contact-us-page-hero.webp"
         imageAlt="Crestview Academy campus tour"
         eyebrow="See It In Person"
         heading="Words Only Go So Far"

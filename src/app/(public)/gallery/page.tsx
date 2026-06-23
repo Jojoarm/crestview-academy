@@ -15,8 +15,8 @@ export default function GalleryPage() {
       <GalleryPageSection />
 
       <FeatureCard
-        image="/assets/img-optimized/crestview-hero-03.webp"
-        imageAlt="Crestview Academy admissions team"
+        image="/assets/img-optimized/Teacher-Parents-meeting.webp"
+        imageAlt="Crestview Academy admissions team with parents"
         eyebrow="Get in Touch"
         heading="Want to See Crestview in Person?"
         description="Pictures tell part of the story. Come and see the rest for yourself. Our admissions team is ready to welcome you and your family to campus."

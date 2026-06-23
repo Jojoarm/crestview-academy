@@ -123,8 +123,8 @@ export default function SecondarySection() {
             <div className="relative h-105 md:h-125">
               <div className="absolute top-0 left-0 w-[45%] h-[72%] overflow-hidden shadow-lg">
                 <Image
-                  src="/assets/img-optimized/crestview-hero-03.webp"
-                  alt="Secondary school pupils in class"
+                  src="/assets/img-optimized/student-life-secondary-hero.webp"
+                  alt="Secondary school students in class"
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 65vw, 33vw"
@@ -133,8 +133,8 @@ export default function SecondarySection() {
               </div>
               <div className="absolute bottom-0 right-0 w-[52%] h-[55%] overflow-hidden shadow-xl border-4 border-(--warm-white)">
                 <Image
-                  src="/assets/img-optimized/crestview-hero-04.webp"
-                  alt="Secondary school science activity"
+                  src="/assets/img-optimized/graduation-day.webp"
+                  alt="Secondary school graduating"
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 52vw, 26vw"

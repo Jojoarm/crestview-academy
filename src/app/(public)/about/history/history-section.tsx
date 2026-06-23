@@ -6,7 +6,7 @@ const milestones = [
     year: '1994',
     title: 'A Single Classroom, A Powerful Belief',
     body: 'Crestview Academy is founded by a group of passionate educators in the heart of Lagos, opening its doors as a small nursery school. With just one classroom and a handful of pupils, the founders set out with a simple but powerful belief: that every child deserves a world-class education, regardless of where they begin.',
-    image: '/assets/img-optimized/crestview-hero-01.webp',
+    image: '/assets/img-optimized/Teacher-Parents-meeting.webp',
   },
   {
     year: '1999',
@@ -28,9 +28,9 @@ const milestones = [
   },
   {
     year: '2018',
-    title: 'Recognised Among Lagos\u2019 Top Schools',
+    title: 'Recognised Among Lagos Top Schools',
     body: 'Crestview is recognised as one of the top performing private schools in Lagos State, with WAEC pass rates consistently above 95%. Our alumni begin to make their mark in universities and careers across Nigeria and abroad.',
-    image: '/assets/img-optimized/crestview-hero-05.webp',
+    image: '/assets/img-optimized/students-in-library.webp',
   },
   {
     year: '2024',

@@ -75,7 +75,7 @@ export default function WelcomeSection() {
             <div className="absolute top-0 left-0 w-8 h-8 bg-primary z-10" />
             <div className="absolute bottom-0 right-0 w-8 h-8 bg-primary z-10" />
             <Image
-              src="/assets/img-optimized/crestview-hero-05.webp"
+              src="/assets/img-optimized/Students-in-physics-lab.webp"
               alt="Crestview Academy students"
               fill
               className="object-cover"

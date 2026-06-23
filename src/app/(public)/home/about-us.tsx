@@ -7,12 +7,12 @@ import { cn } from '@/lib/utils';
 const blocks = [
   {
     eyebrow: 'Our History',
-    heading: 'Three Decades of\nShaping Lives',
+    heading: 'Three Decades of Shaping Lives',
     body: 'Founded in 1994 by a group of passionate educators, Crestview Academy began as a small nursery school in the heart of Lagos with a simple but powerful belief that every child deserves a world class education. Over three decades, we have grown from a single classroom to a full Nursery, Primary, and Secondary institution, earning the trust of thousands of families across Lagos and beyond. Our journey is one of unwavering commitment to excellence, rooted in the values our founders instilled from the very first day.',
     images: [
       {
-        src: '/assets/img-optimized/crestview-hero-01.webp',
-        alt: 'Crestview Academy founding days',
+        src: '/assets/img-optimized/assembly.webp',
+        alt: 'Crestview Academy assembly ground',
       },
       {
         src: '/assets/img-optimized/crestview-hero-02.webp',
@@ -24,7 +24,7 @@ const blocks = [
   },
   {
     eyebrow: 'Our Vision',
-    heading: 'A Future Built on\nExcellence',
+    heading: 'A Future Built on Excellence',
     body: 'To be the leading centre of academic and character excellence in Nigeria, producing graduates who are not only intellectually equipped, but morally grounded, globally aware, and ready to lead with integrity in every sphere of life. We envision a Crestview community where curiosity is celebrated, potential is limitless, and every student leaves not just with qualifications, but with purpose.',
     images: [
       {
@@ -33,7 +33,7 @@ const blocks = [
       },
       {
         src: '/assets/img-optimized/crestview-hero-04.webp',
-        alt: 'Crestview Academy campus',
+        alt: 'Crestview Academy students walking in campus',
       },
     ],
     link: '/about/vision/#vision',
@@ -45,12 +45,12 @@ const blocks = [
     body: 'To provide a rigorous, inclusive, and inspiring education that develops the whole child; intellectually, socially, morally, and physically. Through exceptional teaching, a rich co-curricular life, and a culture of high expectations, we equip every student with the knowledge, skills, and values needed to thrive in a rapidly changing world. At Crestview, we do not just prepare students for examinations, we prepare them for life.',
     images: [
       {
-        src: '/assets/img-optimized/crestview-hero-05.webp',
-        alt: 'Crestview Academy sports day',
+        src: '/assets/img-optimized/pupils-playing-02.webp',
+        alt: 'Pupils of Crestview Academy playing together',
       },
       {
         src: '/assets/img-optimized/crestview-hero-06.webp',
-        alt: 'Crestview Academy graduation',
+        alt: 'A view of Crestview Academy',
       },
     ],
     link: '/about/vision/#mission',

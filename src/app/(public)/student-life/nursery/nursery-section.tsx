@@ -123,7 +123,7 @@ export default function NurserySection() {
               </div>
               <div className="absolute bottom-0 right-0 w-[52%] h-[55%] overflow-hidden shadow-xl border-4 border-(--warm-white)">
                 <Image
-                  src="/assets/img-optimized/crestview-hero-03.webp"
+                  src="/assets/img-optimized/student-life-nursery-hero.webp"
                   alt="Nursery reading activity"
                   fill
                   className="object-cover"

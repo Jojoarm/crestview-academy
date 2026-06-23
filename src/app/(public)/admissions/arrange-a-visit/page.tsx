@@ -12,7 +12,7 @@ export default function ArrangeVisitPage() {
   return (
     <main>
       <PageHero
-        image="/assets/img-optimized/crestview-hero-03.webp"
+        image="/assets/img-optimized/crestview-hero-02.webp"
         eyebrow="Admissions"
         heading="Arrange A Visit"
         description="The best way to know if Crestview is right for your child is to experience it in person. Book a tour today."
@@ -21,7 +21,7 @@ export default function ArrangeVisitPage() {
       <ArrangeVisitSection />
 
       <FeatureCard
-        image="/assets/img-optimized/crestview-hero-05.webp"
+        image="/assets/img-optimized/students-playing-basketball.webp"
         imageAlt="Student life at Crestview Academy"
         eyebrow="Student Life"
         heading="More Than a Classroom Experience"

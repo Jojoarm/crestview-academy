@@ -19,7 +19,7 @@ const blocks = [
       },
       {
         src: '/assets/img-optimized/crestview-hero-04.webp',
-        alt: 'Crestview Academy campus',
+        alt: 'Crestview Academy students walking in campus',
       },
     ],
     flip: false,
@@ -35,12 +35,12 @@ const blocks = [
     ],
     images: [
       {
-        src: '/assets/img-optimized/crestview-hero-05.webp',
-        alt: 'Crestview Academy sports day',
+        src: '/assets/img-optimized/pupils-playing-02.webp',
+        alt: 'Pupils of Crestview Academy playing together',
       },
       {
         src: '/assets/img-optimized/crestview-hero-06.webp',
-        alt: 'Crestview Academy graduation',
+        alt: 'A view of Crestview Academy',
       },
     ],
     flip: true,

@@ -123,8 +123,8 @@ export default function PrimarySection() {
             <div className="relative h-105 md:h-125">
               <div className="absolute top-0 left-0 w-[45%] h-[72%] overflow-hidden shadow-lg">
                 <Image
-                  src="/assets/img-optimized/crestview-hero-03.webp"
-                  alt="Primary school pupils in class"
+                  src="/assets/img-optimized/pupils-playing-02.webp"
+                  alt="Primary school pupils at the playground"
                   fill
                   className="object-cover"
                   sizes="(max-width: 1024px) 65vw, 33vw"
@@ -133,7 +133,7 @@ export default function PrimarySection() {
               </div>
               <div className="absolute bottom-0 right-0 w-[52%] h-[55%] overflow-hidden shadow-xl border-4 border-(--warm-white)">
                 <Image
-                  src="/assets/img-optimized/crestview-hero-04.webp"
+                  src="/assets/img-optimized/student-life-primary-hero.webp"
                   alt="Primary school science activity"
                   fill
                   className="object-cover"

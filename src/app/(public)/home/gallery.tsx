@@ -14,21 +14,15 @@ import { Perforations } from './_components/Perforations';
 
 const gallery = [
   {
-    src: '/assets/img-optimized/crestview-hero-01.webp',
+    src: '/assets/img-optimized/Students-in-physics-lab.webp',
     caption: 'Science Lab Excellence',
     category: 'ACADEMICS',
     year: '2025',
   },
   {
-    src: '/assets/img-optimized/crestview-hero-02.webp',
+    src: '/assets/img-optimized/interhouse-sport-competition-01.webp',
     caption: 'Inter-House Sports Day',
     category: 'SPORTS',
-    year: '2025',
-  },
-  {
-    src: '/assets/img-optimized/crestview-hero-03.webp',
-    caption: 'Annual Prize Giving Ceremony',
-    category: 'EVENTS',
     year: '2025',
   },
   {
@@ -38,28 +32,34 @@ const gallery = [
     year: '2024',
   },
   {
-    src: '/assets/img-optimized/crestview-hero-05.webp',
+    src: '/assets/img-optimized/graduation-day.webp',
     caption: 'Graduation Day 2025',
     category: 'EVENTS',
     year: '2025',
   },
   {
-    src: '/assets/img-optimized/crestview-hero-06.webp',
+    src: '/assets/img-optimized/cultural-day.webp',
     caption: 'Cultural Heritage Day',
     category: 'CULTURE',
     year: '2024',
   },
   {
-    src: '/assets/img-optimized/crestview-hero-01.webp',
-    caption: 'Music & Drama Showcase',
-    category: 'ARTS',
+    src: '/assets/img-optimized/students-in-computer-lab.webp',
+    caption: 'Coding bootcamp',
+    category: 'TECH',
     year: '2025',
   },
   {
-    src: '/assets/img-optimized/crestview-hero-02.webp',
+    src: '/assets/img-optimized/student-learning-04.webp',
     caption: 'National Debate Finals',
     category: 'ACADEMICS',
     year: '2024',
+  },
+  {
+    src: '/assets/img-optimized/graduation-day.webp',
+    caption: 'Annual Prize Giving Ceremony',
+    category: 'EVENTS',
+    year: '2025',
   },
   {
     src: '/assets/img-optimized/crestview-hero-03.webp',
@@ -171,14 +171,14 @@ export default function GallerySection() {
           <button
             onClick={() => swiperRef.current?.slidePrev()}
             aria-label="Previous"
-            className="flex items-center justify-center w-11 h-11 border border-white/20 text-white hover:border-[var(--primary)] hover:text-[var(--primary)] transition-colors duration-200"
+            className="flex items-center justify-center w-11 h-11 border border-white/20 text-white hover:border-primary hover:text-primary transition-colors duration-200"
           >
             <ArrowLeft className="size-4" />
           </button>
           <button
             onClick={() => swiperRef.current?.slideNext()}
             aria-label="Next"
-            className="flex items-center justify-center w-11 h-11 border border-white/20 text-white hover:border-[var(--primary)] hover:text-[var(--primary)] transition-colors duration-200"
+            className="flex items-center justify-center w-11 h-11 border border-white/20 text-white hover:border-primary hover:text-primary transition-colors duration-200"
           >
             <ArrowRight className="size-4" />
           </button>

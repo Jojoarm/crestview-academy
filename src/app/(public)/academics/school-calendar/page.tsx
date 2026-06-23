@@ -13,7 +13,7 @@ export default function SchoolCalendarPage() {
   return (
     <main>
       <PageHero
-        image="/assets/img-optimized/crestview-hero-02.webp"
+        image="/assets/img-optimized/school-calendar-hero.webp"
         eyebrow="Academics"
         heading="School Calendar"
         description="Term dates, mid-term breaks, examinations, and key events — everything you need to plan the academic year ahead."
@@ -22,7 +22,7 @@ export default function SchoolCalendarPage() {
       <SchoolCalendarSection />
 
       <FeatureCard
-        image="/assets/img-optimized/crestview-hero-03.webp"
+        image="/assets/img-optimized/school-calendar-hero.webp"
         imageAlt="Crestview Academy school gallery"
         eyebrow="Life at Crestview"
         heading="See the School in Action"

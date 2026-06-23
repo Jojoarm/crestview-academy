@@ -12,16 +12,16 @@ export default function KindergartenPage() {
   return (
     <main>
       <PageHero
-        image="/assets/img-optimized/crestview-hero-01.webp"
+        image="/assets/img-optimized/student-life-kindergarten-hero.webp"
         eyebrow="Student Life"
         heading="Kindergarten"
-        description="Where every journey begins — a warm, play-based foundation for our youngest learners, ages 2 to 4."
+        description="Where every journey begins; a warm, play-based foundation for our youngest learners, ages 2 to 4."
       />
 
       <KindergartenSection />
 
       <FeatureCard
-        image="/assets/img-optimized/crestview-hero-02.webp"
+        image="/assets/img-optimized/pupils-playing-01.webp"
         imageAlt="Crestview Academy Nursery programme"
         eyebrow="Next Stage"
         heading="What Comes After Kindergarten"

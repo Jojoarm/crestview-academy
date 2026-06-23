@@ -10,8 +10,8 @@ import 'swiper/css/effect-fade';
 const images = [
   '/assets/img-optimized/crestview-hero-02.webp',
   '/assets/img-optimized/crestview-hero-03.webp',
-  '/assets/img-optimized/crestview-hero-04.webp',
-  '/assets/img-optimized/crestview-hero-05.webp',
+  '/assets/img-optimized/Students-in-physics-lab.webp',
+  '/assets/img-optimized/quality-assurance-page-hero.webp',
   '/assets/img-optimized/crestview-hero-06.webp',
   '/assets/img-optimized/crestview-hero-01.webp',
 ];

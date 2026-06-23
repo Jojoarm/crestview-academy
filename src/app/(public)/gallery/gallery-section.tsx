@@ -48,7 +48,7 @@ export default function GalleryPageSection() {
     <>
       {/* ── Featured filmstrip ── */}
       <section className="bg-(--charcoal) overflow-hidden pt-10">
-        <div className="section-pad pt-0">
+        <div className="section-pad py-0">
           <div className="flex items-center justify-between mb-6">
             <SectionHeading
               eyebrow="Featured Moments"

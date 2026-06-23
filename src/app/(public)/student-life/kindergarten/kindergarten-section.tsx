@@ -108,7 +108,7 @@ export default function KindergartenSection() {
             <div className="relative h-105 md:h-125">
               <div className="absolute top-0 left-0 w-[45%] h-[72%] overflow-hidden shadow-lg">
                 <Image
-                  src="/assets/img-optimized/crestview-hero-01.webp"
+                  src="/assets/img-optimized/student-life-kindergarten-hero.webp"
                   alt="Kindergarten children at play"
                   fill
                   className="object-cover"

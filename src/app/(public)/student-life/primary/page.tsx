@@ -12,7 +12,7 @@ export default function PrimaryPage() {
   return (
     <main>
       <PageHero
-        image="/assets/img-optimized/crestview-hero-03.webp"
+        image="/assets/img-optimized/student-life-primary-hero.webp"
         eyebrow="Student Life"
         heading="Primary School"
         description="Rooted in excellence; a rigorous, well rounded curriculum for Primary 1 through 6."

@@ -12,7 +12,7 @@ export default function NurseryPage() {
   return (
     <main>
       <PageHero
-        image="/assets/img-optimized/crestview-hero-02.webp"
+        image="/assets/img-optimized/student-life-nursery-hero.webp"
         eyebrow="Student Life"
         heading="Nursery"
         description="Building blocks of brilliance — foundational literacy, numeracy, and social skills for ages 4 to 6."
@@ -21,7 +21,7 @@ export default function NurseryPage() {
       <NurserySection />
 
       <FeatureCard
-        image="/assets/img-optimized/crestview-hero-03.webp"
+        image="/assets/img-optimized/pupils-playing-02.webp"
         imageAlt="Crestview Academy Primary programme"
         eyebrow="Next Stage"
         heading="What Comes After Nursery"

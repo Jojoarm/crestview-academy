@@ -6,7 +6,7 @@ export default function ApplyPage() {
   return (
     <main>
       <PageHero
-        image="/assets/img-optimized/crestview-hero-05.webp"
+        image="/assets/img-optimized/apply-page-hero.webp"
         eyebrow="Admissions"
         heading="Apply Online"
         description="Begin your child's journey at Crestview Academy. Complete the form below and our admissions team will reach out within 48 hours."

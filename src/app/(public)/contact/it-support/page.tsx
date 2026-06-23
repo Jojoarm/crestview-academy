@@ -14,7 +14,7 @@ export default function ITSupportPage() {
   return (
     <main>
       <PageHero
-        image="/assets/img-optimized/crestview-hero-04.webp"
+        image="/assets/img-optimized/IT-support-page-hero.webp"
         eyebrow="Contact"
         heading="IT Support"
         description="Having trouble with the parent portal, school app, or fee payment system? Let us know and we'll get it sorted."
@@ -23,7 +23,7 @@ export default function ITSupportPage() {
       <ITSupportSection />
 
       <FeatureCard
-        image="/assets/img-optimized/crestview-hero-06.webp"
+        image="/assets/img-optimized/admission-process-hero.webp"
         imageAlt="Crestview Academy contact"
         eyebrow="General Enquiries"
         heading="Not a Technical Issue?"

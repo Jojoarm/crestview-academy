@@ -15,7 +15,7 @@ const levels = [
     tagline: 'Where Every Journey Begins',
     description:
       'Our Kindergarten programme provides a warm, play based foundation that nurtures curiosity, creativity, and early social skills. Through structured play, storytelling, and guided discovery, we prepare the youngest learners for a lifelong love of learning.',
-    image: '/assets/img-optimized/crestview-hero-01.webp',
+    image: '/assets/img-optimized/pupils-learning-03.webp',
     href: '/student-life/kindergarten',
   },
   {
@@ -26,7 +26,7 @@ const levels = [
     tagline: 'Building Blocks of Brilliance',
     description:
       'In our Nursery, children develop foundational literacy, numeracy, and social emotional skills in a vibrant, inclusive environment. Our experienced early years educators follow a structured yet flexible curriculum that meets each child exactly where they are.',
-    image: '/assets/img-optimized/crestview-hero-02.webp',
+    image: '/assets/img-optimized/pupils-learning-02.webp',
     href: '/student-life/nursery',
   },
   {
@@ -48,7 +48,7 @@ const levels = [
     tagline: 'Prepared for the World',
     description:
       'Our Secondary School offers comprehensive preparation for WAEC, NECO, and tertiary education entrance. Combining academic rigour with co-curricular depth; sports, debate, arts, and student leadership, we develop graduates who are ready not just for exams, but for life.',
-    image: '/assets/img-optimized/crestview-hero-04.webp',
+    image: '/assets/img-optimized/student-learning-01.webp',
     href: '/student-life/secondary',
   },
 ];

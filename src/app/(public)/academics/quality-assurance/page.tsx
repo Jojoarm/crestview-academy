@@ -13,7 +13,7 @@ export default function QualityAssurancePage() {
   return (
     <main>
       <PageHero
-        image="/assets/img-optimized/crestview-hero-04.webp"
+        image="/assets/img-optimized/quality-assurance-page-hero.webp"
         eyebrow="Academics"
         heading="Quality Assurance"
         description="How we monitor teaching quality, hold our staff accountable, and ensure every student receives the standard of education we promise."
@@ -22,7 +22,7 @@ export default function QualityAssurancePage() {
       <QualityAssuranceSection />
 
       <FeatureCard
-        image="/assets/img-optimized/crestview-hero-01.webp"
+        image="/assets/img-optimized/crestview-hero-04.webp"
         imageAlt="Crestview Academy school calendar"
         eyebrow="Plan Ahead"
         heading="School Calendar"

@@ -13,7 +13,7 @@ export default function CurriculumPage() {
   return (
     <main>
       <PageHero
-        image="/assets/img-optimized/crestview-hero-03.webp"
+        image="/assets/img-optimized/our-curriculum-page-hero.webp"
         eyebrow="Academics"
         heading="Our Curriculum"
         description="A NERDC aligned curriculum taught with rigour, assessed continuously, and proven in results; from Kindergarten through SSS 3."
@@ -22,7 +22,7 @@ export default function CurriculumPage() {
       <CurriculumSection />
 
       <FeatureCard
-        image="/assets/img-optimized/crestview-hero-04.webp"
+        image="/assets/img-optimized/our-curriculum-page-hero.webp"
         imageAlt="Crestview Academy quality assurance"
         eyebrow="How We Maintain Standards"
         heading="Quality Assurance"

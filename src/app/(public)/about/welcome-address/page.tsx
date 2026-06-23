@@ -6,7 +6,7 @@ export default function WelcomeAddressPage() {
   return (
     <main>
       <PageHero
-        image="/assets/img-optimized/crestview-hero-06.webp"
+        image="/assets/img-optimized/welcome-page-hero.webp"
         eyebrow="About Us"
         heading="A Word From Our Principal"
         description="Mrs. Adaeze Okonkwo shares her vision for Crestview Academy and the values that guide everything we do."
@@ -15,12 +15,13 @@ export default function WelcomeAddressPage() {
       <WelcomeAddressSection />
 
       <FeatureCard
-        image="/assets/img-optimized/crestview-hero-02.webp"
-        imageAlt="Crestview Academy students"
-        eyebrow="Admissions"
-        heading="Ready to Join the Crestview Family?"
-        description="We welcome applications from families who share our belief in excellence, character, and the potential of every child. Our admissions process is straightforward, and our team is here to guide you every step of the way."
-        cta={{ label: 'Apply Now', href: '/admissions/apply' }}
+        image="/assets/img-optimized/crestview-hero-06.webp"
+        imageAlt="Crestview Academy building"
+        eyebrow="Our History"
+        heading="Three Decades of Shaping Lives"
+        description="Founded in 1994, Crestview Academy began as a small nursery school with a powerful belief, that every child deserves a world class education regardless of where they grow up. Today that belief has grown into a full K-12 institution trusted by families across Lagos."
+        cta={{ label: 'Read Our Story', href: '/about/history' }}
+        flip
       />
     </main>
   );
