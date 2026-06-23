@@ -4,120 +4,122 @@ import Link from 'next/link';
 import Image from 'next/image';
 import NavLinks from './NavLinks';
 
+const footerNav = [
+  {
+    group: 'About Us',
+    links: [
+      { name: 'Overview', path: '/about/overview' },
+      { name: 'Welcome Address', path: '/about/welcome-address' },
+      { name: 'History', path: '/about/history' },
+      { name: 'Vision & Values', path: '/about/vision' },
+    ],
+  },
+  {
+    group: 'Admissions',
+    links: [
+      { name: 'Why Choose Crestview', path: '/admissions/why-crestview' },
+      { name: 'Admission Process', path: '/admissions/process' },
+      { name: 'FAQs', path: '/admissions/faqs' },
+      { name: 'Apply Online', path: '/admissions/apply' },
+      { name: 'Arrange A Visit', path: '/admissions/arrange-a-visit' },
+    ],
+  },
+  {
+    group: 'Academics',
+    links: [
+      { name: 'Our Curriculum', path: '/academics/curriculum' },
+      { name: 'Quality Assurance', path: '/academics/quality-assurance' },
+      { name: 'School Calendar', path: '/academics/school-calendar' },
+      { name: 'Kindergarten', path: '/student-life/kindergarten' },
+      { name: 'Nursery', path: '/student-life/nursery' },
+      { name: 'Primary', path: '/student-life/primary' },
+      { name: 'Secondary', path: '/student-life/secondary' },
+    ],
+  },
+  {
+    group: 'Contact',
+    links: [
+      { name: 'Contact Us', path: '/contact/contact-us' },
+      { name: 'IT Support', path: '/contact/it-support' },
+      { name: 'Gallery', path: '/gallery' },
+    ],
+  },
+];
+
 const socials = [
   {
     name: 'Facebook',
     icon: '/assets/icons/facebook-logo.svg',
-    href: 'https://www.facebook.com/share/1Ct7c2nfnn/?mibextid=wwXIfr',
+    href: '#',
   },
   {
     name: 'Instagram',
     icon: '/assets/icons/instagram-logo.svg',
-    href: 'https://www.instagram.com/unco.global.merchants?igsh=cXRtb2JlY2ZoNWxn&utm_source=qr',
+    href: '#',
   },
-  { name: 'Twitter', icon: '/assets/icons/twitter-logo.svg', href: '#' },
-];
-
-const quickLinks = [
-  { name: 'Privacy Policy', href: '/privacy' },
-  { name: 'Terms of Use', href: '/terms' },
-];
-
-const footerLinks = [
-  { name: 'Home', path: '/' },
-  { name: 'About Us', path: '/about' },
-  { name: 'Courses', path: '/courses' },
-  { name: 'Contact Us', path: '/contact' },
+  {
+    name: 'Twitter',
+    icon: '/assets/icons/twitter-logo.svg',
+    href: '#',
+  },
 ];
 
 export default function Footer() {
   return (
-    <footer id="footer" style={{ background: 'var(--foreground)' }}>
-      {/* Info grid */}
-      <div
-        className="px-7 md:px-10 lg:px-14 xl:px-18 py-14 md:py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-12"
-        style={{ borderBottom: '1px solid rgba(255,255,255,0.08)' }}
-      >
-        {/* Col 1 — logo + tagline */}
-        <div className="flex flex-col gap-5">
+    <footer id="footer" className="bg-(--charcoal)">
+      {/* ── Main grid ── */}
+      <div className="px-6 md:px-10 lg:px-16 pt-16 pb-12 grid grid-cols-1 lg:grid-cols-[1.4fr_repeat(4,1fr)] gap-12 border-b border-white/8">
+        {/* Col 1 — brand */}
+        <div className="flex flex-col gap-6 lg:pr-8">
           <Link
-            onClick={() => scrollTo({ top: 0, behavior: 'smooth' })}
             href="/"
-            className="w-40 lg:w-50 bg-background rounded-xl p-2"
+            onClick={() => scrollTo({ top: 0, behavior: 'smooth' })}
+            className="w-36 bg-(--warm-white) rounded-xl p-2 self-start"
           >
             <Image
-              className="object-cover w-full"
               src="/assets/logo/crestview-logo.png"
-              alt="Crest View logo"
+              alt="Crestview Academy"
               width={993}
               height={291}
+              className="object-contain w-full"
               priority
             />
           </Link>
-          <p
-            className="text-sm text-card leading-relaxed"
-            style={{ maxWidth: '26ch' }}
-          >
-            Professional training and development built for managers,
-            consultants, and the organisations that need them sharp.
+
+          <p className="font-body text-sm text-white/55 leading-relaxed max-w-[26ch]">
+            Shaping futures since 1994, a premier Nursery, Primary, and
+            Secondary school in Lekki, Lagos.
           </p>
-        </div>
 
-        {/* Col 2 — Quick links */}
-        <div className="flex flex-col gap-3">
-          <span
-            className="text-[10px] font-semibold tracking-[0.18em] uppercase"
-            style={{ color: 'rgba(255,255,255,0.3)' }}
-          >
-            Useful Links
-          </span>
-          {footerLinks.map((link, index) => (
-            <Link
-              key={index}
-              href={link.path}
-              className="w-fit text-sm leading-relaxed text-card hover:text-white hover:border-b hover:border-white transition-all duration-200"
+          {/* Contact block */}
+          <div className="flex flex-col gap-2 mt-2">
+            <p className="font-body text-xs text-white/30 uppercase tracking-[0.16em] font-semibold mb-1">
+              Get In Touch
+            </p>
+            <a
+              href="tel:+2348012345678"
+              className="font-body text-sm text-white/55 hover:text-white transition-colors duration-150"
             >
-              {link.name}
-            </Link>
-          ))}
-        </div>
-
-        {/* Col 3 — address */}
-        <div className="flex flex-col gap-3">
-          <span
-            className="text-[10px] font-semibold tracking-[0.18em] uppercase"
-            style={{ color: 'rgba(255,255,255,0.3)' }}
-          >
-            Address
-          </span>
-          <p className="text-sm text-card leading-relaxed">
-            14, Admiralty Way, Lekki Phase 1,
-            <br />
-            Lagos, Nigeria
-          </p>
-        </div>
-
-        {/* Col 4 — phone + socials */}
-        <div className="flex flex-col gap-8">
-          <div className="flex flex-col gap-2">
-            <span
-              className="text-[10px] font-semibold tracking-[0.18em] uppercase"
-              style={{ color: 'rgba(255,255,255,0.3)' }}
-            >
-              Phone
-            </span>
-            <p className="text-sm text-card transition-colors duration-200 hover:text-white">
               +234 801 234 5678
+            </a>
+            <a
+              href="mailto:info@crestviewacademy.edu.ng"
+              className="font-body text-sm text-white/55 hover:text-white transition-colors duration-150"
+            >
+              info@crestviewacademy.edu.ng
+            </a>
+            <p className="font-body text-sm text-white/55 leading-relaxed mt-1">
+              14, Admiralty Way,
+              <br />
+              Lekki Phase 1, Lagos State
             </p>
           </div>
 
-          <div className="flex flex-col gap-3">
-            <span
-              className="text-[10px] font-semibold tracking-[0.18em] uppercase"
-              style={{ color: 'rgba(255,255,255,0.3)' }}
-            >
-              Connect with us
-            </span>
+          {/* Socials */}
+          <div className="flex flex-col gap-3 mt-2">
+            <p className="font-body text-xs text-white/30 uppercase tracking-[0.16em] font-semibold">
+              Connect With Us
+            </p>
             <div className="flex items-center gap-3">
               {socials.map((s) => (
                 <NavLinks
@@ -130,35 +132,48 @@ export default function Footer() {
             </div>
           </div>
         </div>
+
+        {/* Cols 2–5 — nav groups */}
+        {footerNav.map((group) => (
+          <div key={group.group} className="flex flex-col gap-3">
+            <span className="font-body text-[10px] font-semibold tracking-[0.18em] uppercase text-white/30 mb-1">
+              {group.group}
+            </span>
+            {group.links.map((link) => (
+              <Link
+                key={link.path}
+                href={link.path}
+                className="font-body w-fit text-sm text-white/55 hover:text-white transition-colors duration-150"
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+        ))}
       </div>
 
-      {/* Bottom bar */}
-      <div className="px-7 md:px-10 lg:px-14 xl:px-18 py-5 flex flex-col md:flex-row md:items-center md:justify-between gap-3">
-        <div className="flex flex-wrap items-center gap-y-2">
-          {quickLinks.map((item, i) => (
+      {/* ── Bottom bar ── */}
+      <div className="px-6 md:px-10 lg:px-16 py-5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <div className="flex items-center gap-1 flex-wrap">
+          {[
+            { name: 'Privacy Policy', href: '/privacy' },
+            { name: 'Terms of Use', href: '/terms' },
+          ].map((item, i, arr) => (
             <span key={item.name} className="flex items-center">
               <Link
                 href={item.href}
-                className="text-xs text-card px-2 first:pl-0 transition-colors duration-200 hover:text-white"
+                className="font-body text-xs text-white/30 px-2 first:pl-0 hover:text-white/60 transition-colors duration-150"
               >
                 {item.name}
               </Link>
-              {i < quickLinks.length - 1 && (
-                <span
-                  className="text-xs select-none pr-2"
-                  style={{ color: 'rgba(255,255,255,0.12)' }}
-                >
-                  |
-                </span>
+              {i < arr.length - 1 && (
+                <span className="text-xs text-white/12 select-none">|</span>
               )}
             </span>
           ))}
         </div>
-        <p
-          className="text-xs shrink-0"
-          style={{ color: 'rgba(255,255,255,0.25)' }}
-        >
-          © {new Date().getFullYear()} CrestView Academy. All rights reserved.
+        <p className="font-body text-xs text-white/25 shrink-0">
+          © {new Date().getFullYear()} Crestview Academy. All rights reserved.
         </p>
       </div>
     </footer>

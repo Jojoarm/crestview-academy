@@ -55,12 +55,12 @@ const expectations = [
   {
     icon: MapPin,
     title: 'Full Campus Tour',
-    body: 'See our classrooms, library, science labs, and sports facilities — not just the front office.',
+    body: 'See our classrooms, library, science labs, and sports facilities; not just the front office.',
   },
   {
     icon: Coffee,
     title: 'Informal Q&A',
-    body: 'Grab a coffee and ask us anything — admissions, fees, curriculum, or daily school life.',
+    body: 'Grab a coffee and ask us anything: admissions, fees, curriculum, or daily school life.',
   },
 ];
 
@@ -136,7 +136,7 @@ export default function ArrangeVisitSection() {
               <p className="font-body text-sm text-(--charcoal-100) opacity-80 leading-relaxed">
                 Monday – Friday, 9:00am – 3:00pm
                 <br />
-                64, Okpe Road, Sapele, Delta State
+                14, Admiralty Way, Lekki Phase 1, Lagos
               </p>
             </div>
           </div>
