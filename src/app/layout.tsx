@@ -3,6 +3,7 @@ import { DM_Sans, DM_Serif_Display, Inter, Lora } from 'next/font/google';
 import './globals.css';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { Toaster } from '@/components/ui/sonner';
+import { Providers } from '@/components/providers';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -129,8 +130,10 @@ export default function RootLayout({
         ${lora.variable}  h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <TooltipProvider>{children}</TooltipProvider>
-        <Toaster closeButton position="top-center" />
+        <Providers>
+          <TooltipProvider>{children}</TooltipProvider>
+          <Toaster closeButton position="top-center" />
+        </Providers>
       </body>
     </html>
   );

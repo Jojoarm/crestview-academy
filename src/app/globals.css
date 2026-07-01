@@ -85,7 +85,7 @@
 
   --border: var(--border-sand);
   --input: var(--border-sand);
-  --ring: var(--terracotta);
+  --ring: var(--terracotta-pale);
 }
 
 @layer components {
