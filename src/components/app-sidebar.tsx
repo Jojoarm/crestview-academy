@@ -13,9 +13,9 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { getNavConfig } from '@/lib/nav-config';
-import type { CurrentUser } from '@/lib/get-current-user';
 import Image from 'next/image';
 import Link from 'next/link';
+import { CurrentUser } from '@/lib/types';
 
 export function AppSidebar({
   user,
