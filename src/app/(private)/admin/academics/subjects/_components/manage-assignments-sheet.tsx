@@ -7,7 +7,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { toast } from 'sonner';
-import { Plus, Trash2 } from 'lucide-react';
+import { Loader2, Plus, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Select,
@@ -38,7 +38,7 @@ import {
 } from '@/hooks/admin/use-subjects';
 import { useClasses } from '@/hooks/admin/use-classes';
 import { ApiError } from '@/lib/api-client';
-import type { Subject, ClassAssignment } from '@/types/subject';
+import type { ClassAssignment } from '@/types/subject';
 
 const assignSchema = z.object({
   classLevelId: z.string().min(1, 'Select a class'),
@@ -102,11 +102,15 @@ function AssignmentRow({
           <span className="font-body text-xs text-muted-foreground">
             Compulsory
           </span>
-          <Switch
-            checked={assignment.isCompulsory}
-            onCheckedChange={handleToggleCompulsory}
-            disabled={updateAssignment.isPending}
-          />
+          {updateAssignment.isPending ? (
+            <Loader2 className="size-4 animate-spin text-muted-foreground" />
+          ) : (
+            <Switch
+              checked={assignment.isCompulsory}
+              onCheckedChange={handleToggleCompulsory}
+              disabled={updateAssignment.isPending}
+            />
+          )}
         </div>
         <Button
           variant="ghost"
@@ -158,7 +162,7 @@ export function ManageAssignmentsSheet({ subjectId, onClose }: Props) {
     <Sheet open={!!subject} onOpenChange={(open) => !open && onClose()}>
       <SheetContent className="bg-background border-border w-full sm:max-w-md overflow-y-auto">
         <SheetHeader className="mb-6">
-          <SheetTitle className="font-heading text-xl text-foreground">
+          <SheetTitle className="font-sans font-semibold text-xl text-foreground">
             Class Assignments
           </SheetTitle>
           <SheetDescription className="font-body text-sm text-muted-foreground">

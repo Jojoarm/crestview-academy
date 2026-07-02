@@ -1,7 +1,7 @@
 'use client';
 
 import { useCurrentUser } from '@/hooks/use-current-user';
-import { getDashboardPathForRole } from '@/lib/roles';
+import { ADMIN_ROLES, getDashboardPathForRole } from '@/lib/roles';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
@@ -16,12 +16,12 @@ export default function AdminLayout({
   useEffect(() => {
     if (!user) return;
 
-    if (user.userRole !== 'admin') {
+    if (!ADMIN_ROLES.includes(user.userRole)) {
       router.replace(getDashboardPathForRole(user.userRole));
     }
   }, [router, user]);
 
-  if (!user || user.userRole !== 'admin') {
+  if (!user || !ADMIN_ROLES.includes(user.userRole)) {
     return null;
   }
 

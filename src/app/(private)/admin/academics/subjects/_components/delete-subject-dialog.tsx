@@ -41,7 +41,7 @@ export function DeleteSubjectDialog({ subject, onClose }: Props) {
     <AlertDialog open={!!subject} onOpenChange={(o) => !o && onClose()}>
       <AlertDialogContent className="bg-background border-border">
         <AlertDialogHeader>
-          <AlertDialogTitle className="font-heading text-lg text-foreground">
+          <AlertDialogTitle className="font-sans text-lg text-foreground">
             Delete subject
           </AlertDialogTitle>
           <AlertDialogDescription className="font-body text-sm text-muted-foreground">

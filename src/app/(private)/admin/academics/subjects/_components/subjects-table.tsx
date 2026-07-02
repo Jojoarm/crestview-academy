@@ -58,9 +58,6 @@ export function SubjectsTable() {
 
   const [formSheetOpen, setFormSheetOpen] = useState(false);
   const [editingSubject, setEditingSubject] = useState<Subject | null>(null);
-  const [assignmentsSubject, setAssignmentsSubject] = useState<Subject | null>(
-    null,
-  );
   const [assignmentsSubjectId, setAssignmentsSubjectId] = useState<
     string | null
   >(null);
@@ -111,7 +108,7 @@ export function SubjectsTable() {
         const count = row.original.classAssignments.length;
         return (
           <button
-            onClick={() => setAssignmentsSubject(row.original)}
+            onClick={() => setAssignmentsSubjectId(row.original.id)}
             className="font-body text-sm text-deep-violet hover:underline"
           >
             {count} {count === 1 ? 'class' : 'classes'}
@@ -157,7 +154,7 @@ export function SubjectsTable() {
             >
               <DropdownMenuItem
                 onClick={() => {
-                  setEditingSubject(subject);
+                  setAssignmentsSubjectId(subject.id);
                   setFormSheetOpen(true);
                 }}
                 className="font-body cursor-pointer"

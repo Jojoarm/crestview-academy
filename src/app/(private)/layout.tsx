@@ -1,13 +1,11 @@
 'use client';
 
-import { redirect, useRouter } from 'next/navigation';
-import { getCurrentUser } from '@/lib/get-current-user';
+import { useRouter } from 'next/navigation';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/app-sidebar';
 import { SiteHeader } from '@/components/site-header';
 import { useCurrentUser } from '@/hooks/use-current-user';
 import { useEffect } from 'react';
-import { Loader2 } from 'lucide-react';
 import { DashboardSkeleton } from '@/components/DashboardSkeleton';
 
 export default function PrivateLayout({

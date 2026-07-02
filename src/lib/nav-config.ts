@@ -48,8 +48,8 @@ const adminNav: NavConfig = {
       ],
     },
     {
-      title: 'Teacher Assignments',
-      url: '/admin/teacher-assignments',
+      title: 'Teacher Assignment',
+      url: '/admin/teacher-assignment',
       icon: UserCheck,
     },
     {
