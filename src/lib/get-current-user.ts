@@ -16,6 +16,16 @@ export type CurrentUser = {
 export async function getCurrentUser(): Promise<CurrentUser | null> {
   try {
     const cookieHeader = (await cookies()).toString();
+
+    const store = await cookies();
+
+    console.log(
+      store.getAll().map((c) => ({
+        name: c.name,
+        value: c.value.slice(0, 20),
+      })),
+    );
+
     const user = await apiClient.get<CurrentUser>('/api/profile/me', {
       cookieHeader,
     });
