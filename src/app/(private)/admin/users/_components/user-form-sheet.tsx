@@ -153,7 +153,7 @@ export function UserFormSheet({ open, onOpenChange, user }: Props) {
             className="flex flex-col gap-5 p-4"
           >
             <div className="flex flex-col gap-1">
-              <p className="font-body text-xs font-medium uppercase tracking-widest text-[var(--terracotta-light)]">
+              <p className="font-body text-xs font-medium uppercase tracking-widest text-terracotta-light">
                 01 — Details
               </p>
             </div>

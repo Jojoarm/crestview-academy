@@ -39,6 +39,14 @@
   --color-terracotta-light: var(--terracotta-light);
   --color-terracotta-pale: var(--terracotta-pale);
 
+  --color-deep-violet: var(--deep-violet);
+  --color-violet: var(--violet);
+  --color-light-violet: var(--light-violet);
+  --color-sage: var(--sage);
+  --color-sage-light: var(--sage-light);
+  --color-ember: var(--ember);
+  --color-ember-light: var(--ember-light);
+
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -58,6 +66,13 @@
   --warm-white-dark: #f2ede6;
   --white: #ffffff;
   --border-sand: #d4bfa8;
+  --deep-violet: #403c5c;
+  --violet: #635b8c;
+  --light-violet: #f5f3fa;
+  --sage: #8b8f7e;
+  --sage-light: #b2b6a5;
+  --ember: #c66a42;
+  --ember-light: #d97745;
 
   /* Semantic */
   --background: var(--warm-white);

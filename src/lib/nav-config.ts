@@ -42,9 +42,9 @@ const adminNav: NavConfig = {
       url: '#',
       icon: GraduationCap,
       items: [
-        { title: 'Sessions & Terms', url: '/admin/sessions' },
-        { title: 'Classes & Arms', url: '/admin/classes' },
-        { title: 'Subjects', url: '/admin/subjects' },
+        { title: 'Sessions & Terms', url: '/admin/academics/sessions' },
+        { title: 'Classes & Arms', url: '/admin/academics/classes' },
+        { title: 'Subjects', url: '/admin/academics/subjects' },
       ],
     },
     {
