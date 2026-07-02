@@ -18,8 +18,8 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from '@/components/ui/sidebar';
-import type { CurrentUser } from '@/lib/get-current-user';
 import Link from 'next/link';
+import { CurrentUser } from '@/lib/types';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
