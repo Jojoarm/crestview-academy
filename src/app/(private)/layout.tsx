@@ -1,18 +1,39 @@
-import { redirect } from 'next/navigation';
+'use client';
+
+import { redirect, useRouter } from 'next/navigation';
 import { getCurrentUser } from '@/lib/get-current-user';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
 import { AppSidebar } from '@/components/app-sidebar';
 import { SiteHeader } from '@/components/site-header';
+import { useCurrentUser } from '@/hooks/use-current-user';
+import { useEffect } from 'react';
+import { Loader2 } from 'lucide-react';
 
-export default async function PrivateLayout({
+export default function PrivateLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const user = await getCurrentUser();
+  const { data: user, isLoading } = useCurrentUser();
 
-  if (!user) redirect('/login');
-  if (user.forcePasswordChange) redirect('/auth/change-password');
+  const router = useRouter();
+
+  useEffect(() => {
+    if (isLoading) return;
+
+    if (!user) {
+      router.replace('/login');
+      return;
+    }
+
+    if (user.forcePasswordChange) {
+      router.replace('/auth/change-password');
+    }
+  }, [user, isLoading, router]);
+
+  if (isLoading || !user) {
+    return <Loader2 />;
+  }
 
   return (
     <SidebarProvider

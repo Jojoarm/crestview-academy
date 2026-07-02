@@ -1,6 +1,3 @@
-import { redirect } from 'next/navigation';
-import { getCurrentUser } from '@/lib/get-current-user';
-import { getDashboardPathForRole } from '@/lib/roles';
 import Link from 'next/link';
 import { buttonVariants } from '@/components/ui/button';
 import { ArrowLeft } from 'lucide-react';
@@ -11,12 +8,6 @@ export default async function AuthLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const user = await getCurrentUser();
-
-  if (user && !user.forcePasswordChange) {
-    redirect(getDashboardPathForRole(user.userRole));
-  }
-
   return (
     <div className="relative flex min-h-svh flex-col items-center justify-center">
       <Link

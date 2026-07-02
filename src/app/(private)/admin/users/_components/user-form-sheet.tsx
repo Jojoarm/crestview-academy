@@ -1,5 +1,3 @@
-// src/app/(private)/admin/users/_components/user-form-sheet.tsx
-
 'use client';
 
 import { useEffect } from 'react';
@@ -166,7 +164,7 @@ export function UserFormSheet({ open, onOpenChange, user }: Props) {
                   <Field data-invalid={fieldState.invalid}>
                     <FieldLabel
                       htmlFor={field.name}
-                      className="font-body text-sm text-[var(--charcoal)]"
+                      className="font-body text-sm text-(--charcoal)"
                     >
                       Full name
                     </FieldLabel>
@@ -175,7 +173,7 @@ export function UserFormSheet({ open, onOpenChange, user }: Props) {
                       {...field}
                       id={field.name}
                       aria-invalid={fieldState.invalid}
-                      className="border-[var(--border-sand)] focus-visible:ring-[var(--terracotta)] h-11"
+                      className="border-(--border-sand) focus-visible:ring-terracotta h-11"
                     />
 
                     {fieldState.invalid && (
@@ -192,7 +190,7 @@ export function UserFormSheet({ open, onOpenChange, user }: Props) {
                   <Field data-invalid={fieldState.invalid}>
                     <FieldLabel
                       htmlFor={field.name}
-                      className="font-body text-sm text-[var(--charcoal)]"
+                      className="font-body text-sm text-(--charcoal)"
                     >
                       Email
                     </FieldLabel>
@@ -202,7 +200,7 @@ export function UserFormSheet({ open, onOpenChange, user }: Props) {
                       id={field.name}
                       type="email"
                       aria-invalid={fieldState.invalid}
-                      className="border-[var(--border-sand)] focus-visible:ring-[var(--terracotta)] h-11"
+                      className="border-(--border-sand) focus-visible:ring-terracotta h-11"
                     />
 
                     {fieldState.invalid && (
@@ -214,7 +212,7 @@ export function UserFormSheet({ open, onOpenChange, user }: Props) {
             </FieldGroup>
 
             <div className="flex flex-col gap-1 mt-2">
-              <p className="font-body text-xs font-medium uppercase tracking-widest text-[var(--terracotta-light)]">
+              <p className="font-body text-xs font-medium uppercase tracking-widest text-terracotta-light">
                 02 — Role
               </p>
             </div>
@@ -227,7 +225,7 @@ export function UserFormSheet({ open, onOpenChange, user }: Props) {
                   <Field data-invalid={fieldState.invalid}>
                     <FieldLabel
                       htmlFor={field.name}
-                      className="font-body text-sm text-[var(--charcoal)]"
+                      className="font-body text-sm text-(--charcoal)"
                     >
                       Role
                     </FieldLabel>
@@ -236,12 +234,12 @@ export function UserFormSheet({ open, onOpenChange, user }: Props) {
                       <SelectTrigger
                         id={field.name}
                         aria-invalid={fieldState.invalid}
-                        className="border-[var(--border-sand)] focus:ring-[var(--terracotta)] h-11 font-body"
+                        className="border-(--border-sand) focus:ring-terracotta h-11 font-body"
                       >
                         <SelectValue placeholder="Select a role" />
                       </SelectTrigger>
 
-                      <SelectContent className="bg-[var(--warm-white)] border-[var(--border-sand)] shadow-lg">
+                      <SelectContent className="bg-(--warm-white) border-(--border-sand) shadow-lg">
                         {ROLE_OPTIONS.map(([value, config]) => (
                           <SelectItem
                             key={value}
@@ -265,7 +263,7 @@ export function UserFormSheet({ open, onOpenChange, user }: Props) {
             <Button
               type="submit"
               disabled={updateUser.isPending}
-              className="mt-2 h-11 bg-[var(--terracotta)] hover:bg-[var(--terracotta-mid)] text-white font-body"
+              className="mt-2 h-11 bg-terracotta hover:bg-(--terracotta-mid) text-white font-body"
             >
               {updateUser.isPending ? 'Saving...' : 'Save changes'}
             </Button>
@@ -276,7 +274,7 @@ export function UserFormSheet({ open, onOpenChange, user }: Props) {
             className="flex flex-col gap-5 p-4"
           >
             <div className="flex flex-col gap-1">
-              <p className="font-body text-xs font-medium uppercase tracking-widest text-[var(--terracotta-light)]">
+              <p className="font-body text-xs font-medium uppercase tracking-widest text-terracotta-light">
                 01 — Details
               </p>
             </div>
@@ -289,7 +287,7 @@ export function UserFormSheet({ open, onOpenChange, user }: Props) {
                   <Field data-invalid={fieldState.invalid}>
                     <FieldLabel
                       htmlFor={field.name}
-                      className="font-body text-sm text-[var(--charcoal)]"
+                      className="font-body text-sm text-(--charcoal)"
                     >
                       Full name
                     </FieldLabel>
@@ -298,7 +296,7 @@ export function UserFormSheet({ open, onOpenChange, user }: Props) {
                       {...field}
                       id={field.name}
                       aria-invalid={fieldState.invalid}
-                      className="border-[var(--border-sand)] focus-visible:ring-[var(--terracotta)] h-11"
+                      className="border-(--border-sand) focus-visible:ring-terracotta h-11"
                     />
 
                     {fieldState.invalid && (
@@ -315,7 +313,7 @@ export function UserFormSheet({ open, onOpenChange, user }: Props) {
                   <Field data-invalid={fieldState.invalid}>
                     <FieldLabel
                       htmlFor={field.name}
-                      className="font-body text-sm text-[var(--charcoal)]"
+                      className="font-body text-sm text-(--charcoal)"
                     >
                       Email
                     </FieldLabel>
@@ -325,7 +323,7 @@ export function UserFormSheet({ open, onOpenChange, user }: Props) {
                       id={field.name}
                       type="email"
                       aria-invalid={fieldState.invalid}
-                      className="border-[var(--border-sand)] focus-visible:ring-[var(--terracotta)] h-11"
+                      className="border-(--border-sand) focus-visible:ring-terracotta h-11"
                     />
 
                     {fieldState.invalid && (
@@ -337,7 +335,7 @@ export function UserFormSheet({ open, onOpenChange, user }: Props) {
             </FieldGroup>
 
             <div className="flex flex-col gap-1 mt-2">
-              <p className="font-body text-xs font-medium uppercase tracking-widest text-[var(--terracotta-light)]">
+              <p className="font-body text-xs font-medium uppercase tracking-widest text-terracotta-light">
                 02 — Access
               </p>
             </div>
@@ -350,7 +348,7 @@ export function UserFormSheet({ open, onOpenChange, user }: Props) {
                   <Field data-invalid={fieldState.invalid}>
                     <FieldLabel
                       htmlFor={field.name}
-                      className="font-body text-sm text-[var(--charcoal)]"
+                      className="font-body text-sm text-(--charcoal)"
                     >
                       Temporary password
                     </FieldLabel>
@@ -360,7 +358,7 @@ export function UserFormSheet({ open, onOpenChange, user }: Props) {
                       id={field.name}
                       type="password"
                       aria-invalid={fieldState.invalid}
-                      className="border-[var(--border-sand)] focus-visible:ring-[var(--terracotta)] h-11"
+                      className="border-(--border-sand) focus-visible:ring-terracotta h-11"
                     />
 
                     {fieldState.invalid && (
@@ -377,7 +375,7 @@ export function UserFormSheet({ open, onOpenChange, user }: Props) {
                   <Field data-invalid={fieldState.invalid}>
                     <FieldLabel
                       htmlFor={field.name}
-                      className="font-body text-sm text-[var(--charcoal)]"
+                      className="font-body text-sm text-(--charcoal)"
                     >
                       Role
                     </FieldLabel>
@@ -386,12 +384,12 @@ export function UserFormSheet({ open, onOpenChange, user }: Props) {
                       <SelectTrigger
                         id={field.name}
                         aria-invalid={fieldState.invalid}
-                        className="border-[var(--border-sand)] focus:ring-[var(--terracotta)] h-11 font-body"
+                        className="border-(--border-sand) focus:ring-terracotta h-11 font-body"
                       >
                         <SelectValue placeholder="Select a role" />
                       </SelectTrigger>
 
-                      <SelectContent className="bg-[var(--warm-white)] border-[var(--border-sand)] shadow-lg">
+                      <SelectContent className="bg-(--warm-white) border-(--border-sand) shadow-lg">
                         {ROLE_OPTIONS.map(([value, config]) => (
                           <SelectItem
                             key={value}
@@ -415,7 +413,7 @@ export function UserFormSheet({ open, onOpenChange, user }: Props) {
             <Button
               type="submit"
               disabled={createUser.isPending}
-              className="mt-2 h-11 bg-[var(--terracotta)] hover:bg-[var(--terracotta-mid)] text-white font-body"
+              className="mt-2 h-11 bg-terracotta hover:bg-(--terracotta-mid) text-white font-body"
             >
               {createUser.isPending ? 'Creating...' : 'Create user'}
             </Button>

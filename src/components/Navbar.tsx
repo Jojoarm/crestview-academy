@@ -9,12 +9,8 @@ import NavInfo from './NavInfo';
 import Logo from './Logo';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
-import { CurrentUser } from '@/lib/get-current-user';
 import { getDashboardPathForRole } from '@/lib/roles';
-
-type NavbarProps = {
-  user: CurrentUser | null;
-};
+import { useCurrentUser } from '@/hooks/use-current-user';
 
 const navLinks = [
   { name: 'Home', path: '/' },
@@ -65,12 +61,13 @@ const navLinks = [
   },
 ];
 
-export default function Navbar({ user }: NavbarProps) {
+export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const pathname = usePathname();
+  const { data: user } = useCurrentUser();
 
   useEffect(() => {
     const hash = window.location.hash;

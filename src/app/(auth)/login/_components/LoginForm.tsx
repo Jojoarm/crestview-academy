@@ -8,12 +8,13 @@ import {
   FieldLabel,
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
+import { useCurrentUser } from '@/hooks/use-current-user';
 import { apiClient, ApiError } from '@/lib/api-client';
-import { CurrentUser } from '@/lib/get-current-user';
 import { getDashboardPathForRole } from '@/lib/roles';
+import { CurrentUser } from '@/lib/types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -30,6 +31,17 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 export function LoginForm() {
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { data: user, isLoading } = useCurrentUser();
+
+  useEffect(() => {
+    if (!isLoading && user) {
+      if (user.forcePasswordChange) {
+        router.replace('/auth/change-password');
+      } else {
+        router.replace(getDashboardPathForRole(user.userRole));
+      }
+    }
+  }, [user, isLoading, router]);
 
   const form = useForm<LoginValues>({
     resolver: zodResolver(loginSchema),
