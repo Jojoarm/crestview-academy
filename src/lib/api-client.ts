@@ -45,7 +45,7 @@ async function request<T>(
     },
     // Browser-side: send the session cookie cross-origin.
     // Server-side: cookies are forwarded manually via the Cookie header above.
-    credentials: isServer ? 'omit' : 'include',
+    credentials: 'include',
     cache,
     body: body ? JSON.stringify(body) : undefined,
   });
