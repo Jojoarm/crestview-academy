@@ -11,7 +11,7 @@ export default async function PrivateLayout({
 }) {
   const user = await getCurrentUser();
 
-  if (!user) redirect('/auth/login');
+  if (!user) redirect('/login');
   if (user.forcePasswordChange) redirect('/auth/change-password');
 
   return (

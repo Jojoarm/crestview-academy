@@ -26,7 +26,7 @@ export default async function AuthLayout({
           className: 'absolute left-4 top-4 md:left-8 md:top-8',
         })}
       >
-        <ArrowLeft className="size-4" /> Back
+        <ArrowLeft className="size-4" /> Home
       </Link>
       <div className="flex w-full max-w-sm mx-auto flex-col items-center justify-center gap-6">
         <Logo />

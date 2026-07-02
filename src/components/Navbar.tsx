@@ -9,6 +9,12 @@ import NavInfo from './NavInfo';
 import Logo from './Logo';
 import { cn } from '@/lib/utils';
 import Image from 'next/image';
+import { CurrentUser } from '@/lib/get-current-user';
+import { getDashboardPathForRole } from '@/lib/roles';
+
+type NavbarProps = {
+  user: CurrentUser | null;
+};
 
 const navLinks = [
   { name: 'Home', path: '/' },
@@ -59,7 +65,7 @@ const navLinks = [
   },
 ];
 
-export default function Navbar() {
+export default function Navbar({ user }: NavbarProps) {
   const [scrolled, setScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
@@ -233,10 +239,10 @@ export default function Navbar() {
 
           {/* Login button — desktop */}
           <Link
-            href="/login"
+            href={user ? getDashboardPathForRole(user.userRole) : '/login'}
             className="hidden lg:flex items-center justify-center bg-primary text-white text-sm font-medium font-body px-6 py-3 hover:bg-accent transition-colors duration-200 tracking-wide"
           >
-            Login
+            {user ? 'Dashboard' : 'Login'}
           </Link>
 
           {/* Mobile hamburger */}
@@ -264,11 +270,11 @@ export default function Navbar() {
           <Logo />
           <div className="flex items-center gap-3">
             <Link
-              href="/login"
+              href={user ? getDashboardPathForRole(user.userRole) : '/login'}
               onClick={() => setIsMenuOpen(false)}
               className="bg-primary text-white text-sm font-medium px-5 py-2.5 tracking-wide"
             >
-              Login
+              {user ? 'Dashboard' : 'Login'}
             </Link>
             <button
               onClick={() => setIsMenuOpen(false)}
