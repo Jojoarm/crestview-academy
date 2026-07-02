@@ -8,6 +8,7 @@ import { SiteHeader } from '@/components/site-header';
 import { useCurrentUser } from '@/hooks/use-current-user';
 import { useEffect } from 'react';
 import { Loader2 } from 'lucide-react';
+import { DashboardSkeleton } from '@/components/DashboardSkeleton';
 
 export default function PrivateLayout({
   children,
@@ -31,9 +32,11 @@ export default function PrivateLayout({
     }
   }, [user, isLoading, router]);
 
-  if (isLoading || !user) {
-    return <Loader2 />;
+  if (isLoading) {
+    return <DashboardSkeleton />;
   }
+
+  if (!user) return null;
 
   return (
     <SidebarProvider
