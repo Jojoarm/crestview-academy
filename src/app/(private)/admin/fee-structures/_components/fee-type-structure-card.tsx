@@ -1,0 +1,431 @@
+'use client';
+
+import { useState } from 'react';
+import { Plus, Pencil, Trash2 } from 'lucide-react';
+import { toast } from 'sonner';
+import { Button } from '@/components/ui/button';
+import { Card } from '@/components/ui/card';
+import {
+  AlertDialog,
+  AlertDialogContent,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogCancel,
+} from '@/components/ui/alert-dialog';
+import { cn } from '@/lib/utils';
+import { useDeleteFeeStructure } from '@/hooks/admin/use-fees';
+import { ApiError } from '@/lib/api-client';
+import {
+  FREQUENCY_LABELS,
+  SCOPE_LABELS,
+  type FeeType,
+  type FeeStructure,
+} from '@/types/fee';
+import { EditFeeStructureSheet } from './edit-fee-structure-sheet';
+
+type Props = {
+  feeType: FeeType;
+  structures: FeeStructure[];
+  onAddStructure: () => void;
+};
+
+const FREQUENCY_COLORS: Record<string, string> = {
+  OneTime: 'bg-emerald-50 text-emerald-700',
+  Annual: 'bg-light-violet text-deep-violet',
+  PerTerm: 'bg-terracotta-pale text-primary',
+};
+
+const SCOPE_COLORS: Record<string, string> = {
+  SchoolWide: 'bg-muted text-muted-foreground',
+  PerClass: 'bg-amber-50 text-amber-700',
+};
+
+function formatAmount(amount: string) {
+  return new Intl.NumberFormat('en-NG', {
+    style: 'currency',
+    currency: 'NGN',
+    minimumFractionDigits: 0,
+  }).format(parseFloat(amount));
+}
+
+// School Wide Renderer
+// For SchoolWide fees: show a simple list of amount per context (session/term)
+
+function SchoolWideStructures({
+  structures,
+  onEdit,
+  onDelete,
+}: {
+  structures: FeeStructure[];
+  onEdit: (s: FeeStructure) => void;
+  onDelete: (s: FeeStructure) => void;
+}) {
+  if (structures.length === 0) {
+    return (
+      <p className="font-body text-sm text-muted-foreground py-2">
+        No amounts set yet.
+      </p>
+    );
+  }
+
+  return (
+    <div className="flex flex-col gap-1.5">
+      {structures.map((s) => {
+        const label = [s.session?.name, s.term ? `${s.term.name} Term` : null]
+          .filter(Boolean)
+          .join(' · ');
+
+        return (
+          <div
+            key={s.id}
+            className="flex items-center justify-between gap-3 py-2.5 px-3 bg-muted border border-border rounded"
+          >
+            <p className="font-body text-sm text-muted-foreground">
+              {label || 'All sessions'}
+            </p>
+            <div className="flex items-center gap-3 shrink-0">
+              <p className="font-body text-sm font-semibold text-foreground">
+                {formatAmount(s.amount)}
+              </p>
+              <button
+                onClick={() => onEdit(s)}
+                className="text-muted-foreground hover:text-primary transition-colors"
+              >
+                <Pencil className="size-3.5" />
+              </button>
+              <button
+                onClick={() => onDelete(s)}
+                className="text-muted-foreground hover:text-red-500 transition-colors"
+              >
+                <Trash2 className="size-3.5" />
+              </button>
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  );
+}
+
+// Per Class Renderer
+// For PerClass + OneTime/Annual: class rows, amount column
+
+function PerClassStructures({
+  structures,
+  onEdit,
+  onDelete,
+}: {
+  structures: FeeStructure[];
+  onEdit: (s: FeeStructure) => void;
+  onDelete: (s: FeeStructure) => void;
+}) {
+  if (structures.length === 0) {
+    return (
+      <p className="font-body text-sm text-muted-foreground py-2">
+        No amounts set yet.
+      </p>
+    );
+  }
+
+  // Group by session if annual, otherwise flat
+  const bySession: Record<string, FeeStructure[]> = {};
+  structures.forEach((s) => {
+    const key = s.session?.name ?? 'All Sessions';
+    if (!bySession[key]) bySession[key] = [];
+    bySession[key].push(s);
+  });
+
+  return (
+    <div className="flex flex-col gap-3">
+      {Object.entries(bySession).map(([sessionName, items]) => (
+        <div key={sessionName} className="flex flex-col gap-1.5">
+          {Object.keys(bySession).length > 1 && (
+            <p className="font-body text-xs text-muted-foreground font-medium">
+              {sessionName}
+            </p>
+          )}
+          {items.map((s) => (
+            <div
+              key={s.id}
+              className="flex items-center justify-between gap-3 py-2.5 px-3 bg-muted border border-border rounded"
+            >
+              <p className="font-body text-sm font-medium text-foreground">
+                {s.classLevel?.name ?? '—'}
+              </p>
+              <div className="flex items-center gap-3 shrink-0">
+                <p className="font-body text-sm font-semibold text-foreground">
+                  {formatAmount(s.amount)}
+                </p>
+                <button
+                  onClick={() => onEdit(s)}
+                  className="text-muted-foreground hover:text-primary transition-colors"
+                >
+                  <Pencil className="size-3.5" />
+                </button>
+                <button
+                  onClick={() => onDelete(s)}
+                  className="text-muted-foreground hover:text-red-500 transition-colors"
+                >
+                  <Trash2 className="size-3.5" />
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+//  Matrix Renderer
+// For PerTerm + PerClass: classes as rows, terms as columns — the tuition case
+
+function MatrixStructures({
+  structures,
+  onEdit,
+  onDelete,
+}: {
+  structures: FeeStructure[];
+  onEdit: (s: FeeStructure) => void;
+  onDelete: (s: FeeStructure) => void;
+}) {
+  if (structures.length === 0) {
+    return (
+      <p className="font-body text-sm text-muted-foreground py-2">
+        No amounts set yet.
+      </p>
+    );
+  }
+
+  // Get unique classes and terms
+  const classMap: Record<string, string> = {};
+  const termMap: Record<string, string> = {};
+  structures.forEach((s) => {
+    if (s.classLevel) classMap[s.classLevel.id] = s.classLevel.name;
+    if (s.term) termMap[s.term.id] = `${s.term.name} Term`;
+  });
+
+  const classIds = Object.keys(classMap);
+  const termIds = Object.keys(termMap);
+
+  // Build lookup: classId+termId → structure
+  const lookup: Record<string, FeeStructure> = {};
+  structures.forEach((s) => {
+    if (s.classLevelId && s.termId) {
+      lookup[`${s.classLevelId}__${s.termId}`] = s;
+    }
+  });
+
+  return (
+    <div className="overflow-x-auto">
+      <table className="w-full text-sm">
+        <thead>
+          <tr>
+            <th className="text-left font-body text-xs text-muted-foreground font-medium py-2 pr-4 min-w-28">
+              Class
+            </th>
+            {termIds.map((termId) => (
+              <th
+                key={termId}
+                className="text-left font-body text-xs text-muted-foreground font-medium py-2 px-3 min-w-36"
+              >
+                {termMap[termId]}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {classIds.map((classId) => (
+            <tr key={classId} className="border-t border-border">
+              <td className="font-body text-sm font-medium text-foreground py-2.5 pr-4">
+                {classMap[classId]}
+              </td>
+              {termIds.map((termId) => {
+                const structure = lookup[`${classId}__${termId}`];
+                return (
+                  <td key={termId} className="py-2.5 px-3">
+                    {structure ? (
+                      <div className="flex items-center gap-2">
+                        <span className="font-body text-sm font-semibold text-foreground">
+                          {formatAmount(structure.amount)}
+                        </span>
+                        <button
+                          onClick={() => onEdit(structure)}
+                          className="text-muted-foreground hover:text-primary transition-colors"
+                        >
+                          <Pencil className="size-3" />
+                        </button>
+                        <button
+                          onClick={() => onDelete(structure)}
+                          className="text-muted-foreground hover:text-red-500 transition-colors"
+                        >
+                          <Trash2 className="size-3" />
+                        </button>
+                      </div>
+                    ) : (
+                      <span className="font-body text-xs text-muted-foreground italic">
+                        Not set
+                      </span>
+                    )}
+                  </td>
+                );
+              })}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+// Main Card
+
+export function FeeTypeStructureCard({
+  feeType,
+  structures,
+  onAddStructure,
+}: Props) {
+  const [editingStructure, setEditingStructure] = useState<FeeStructure | null>(
+    null,
+  );
+  const [deletingStructure, setDeletingStructure] =
+    useState<FeeStructure | null>(null);
+
+  const deleteStructure = useDeleteFeeStructure(deletingStructure?.id ?? '');
+
+  async function handleDelete() {
+    try {
+      await deleteStructure.mutateAsync();
+      toast.success('Fee structure deleted');
+      setDeletingStructure(null);
+    } catch (error) {
+      toast.error(
+        error instanceof ApiError
+          ? error.message
+          : 'Failed to delete fee structure',
+      );
+    }
+  }
+
+  const isMatrix =
+    feeType.frequency === 'PerTerm' && feeType.scope === 'PerClass';
+  const isPerClass = feeType.scope === 'PerClass' && !isMatrix;
+
+  return (
+    <>
+      <Card className="p-5 flex flex-col gap-4">
+        {/* Header */}
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0">
+            <h3 className="font-sans font-semibold text-lg text-foreground">
+              {feeType.name}
+            </h3>
+            {feeType.description && (
+              <p className="font-body text-xs text-muted-foreground mt-0.5">
+                {feeType.description}
+              </p>
+            )}
+            <div className="flex items-center gap-2 mt-2 flex-wrap">
+              <span
+                className={cn(
+                  'inline-flex items-center px-2 py-0.5 rounded text-xs font-body font-medium',
+                  FREQUENCY_COLORS[feeType.frequency],
+                )}
+              >
+                {FREQUENCY_LABELS[feeType.frequency]}
+              </span>
+              <span
+                className={cn(
+                  'inline-flex items-center px-2 py-0.5 rounded text-xs font-body font-medium',
+                  SCOPE_COLORS[feeType.scope],
+                )}
+              >
+                {SCOPE_LABELS[feeType.scope]}
+              </span>
+              {feeType.isOptional && (
+                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-body font-medium bg-muted text-muted-foreground">
+                  Optional
+                </span>
+              )}
+              <span className="font-body text-xs text-muted-foreground">
+                {structures.length}{' '}
+                {structures.length === 1 ? 'entry' : 'entries'}
+              </span>
+            </div>
+          </div>
+          <Button
+            size="sm"
+            variant="outline"
+            onClick={onAddStructure}
+            className="h-8 border-border font-body text-xs gap-1 shrink-0"
+          >
+            <Plus className="size-3.5" />
+            Add
+          </Button>
+        </div>
+
+        <div className="h-px bg-border" />
+
+        {/* Structures rendered based on type */}
+        {isMatrix ? (
+          <MatrixStructures
+            structures={structures}
+            onEdit={setEditingStructure}
+            onDelete={setDeletingStructure}
+          />
+        ) : isPerClass ? (
+          <PerClassStructures
+            structures={structures}
+            onEdit={setEditingStructure}
+            onDelete={setDeletingStructure}
+          />
+        ) : (
+          <SchoolWideStructures
+            structures={structures}
+            onEdit={setEditingStructure}
+            onDelete={setDeletingStructure}
+          />
+        )}
+      </Card>
+
+      <EditFeeStructureSheet
+        structure={editingStructure}
+        onClose={() => setEditingStructure(null)}
+      />
+
+      <AlertDialog
+        open={!!deletingStructure}
+        onOpenChange={(o) => !o && setDeletingStructure(null)}
+      >
+        <AlertDialogContent className="bg-background border-border">
+          <AlertDialogHeader>
+            <AlertDialogTitle className="font-heading text-lg text-foreground">
+              Delete fee structure
+            </AlertDialogTitle>
+            <AlertDialogDescription className="font-body text-sm text-muted-foreground">
+              This will permanently delete this{' '}
+              <span className="font-medium text-foreground">
+                {feeType.name}
+              </span>{' '}
+              entry. This cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel className="font-body border-border">
+              Cancel
+            </AlertDialogCancel>
+            <Button
+              onClick={handleDelete}
+              disabled={deleteStructure.isPending}
+              className="bg-red-600 hover:bg-red-700 text-white font-body"
+            >
+              {deleteStructure.isPending ? 'Deleting...' : 'Yes, delete'}
+            </Button>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+    </>
+  );
+}

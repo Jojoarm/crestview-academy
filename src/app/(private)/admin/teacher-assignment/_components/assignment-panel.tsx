@@ -17,7 +17,7 @@ export function AssignmentPanel({ classArmId, label, section }: Props) {
     return (
       <div className="flex flex-col gap-4">
         {[0, 1].map((i) => (
-          <div key={i} className="bg-card/40 border border-border p-5">
+          <div key={i} className="bg-card/30 border border-border p-5">
             <div className="flex flex-col gap-3">
               <div className="h-5 w-40 bg-muted animate-pulse rounded" />
               <div className="h-4 w-full bg-muted animate-pulse rounded" />

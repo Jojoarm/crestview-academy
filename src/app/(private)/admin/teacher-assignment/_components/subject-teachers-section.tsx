@@ -44,7 +44,7 @@ function SubjectTeacherRow({
   return (
     <div className="flex items-center justify-between gap-3 py-3 px-4 bg-muted border border-border rounded">
       <div className="flex items-center gap-3 min-w-0">
-        <div className="size-8 rounded-lg bg-light-violet text-deep-violet flex items-center justify-center text-xs font-body font-medium shrink-0">
+        <div className="size-8 rounded-full bg-deep-violet text-white flex items-center justify-center text-xs font-body font-medium shrink-0">
           {subjectTeacher.subject.code.slice(0, 3)}
         </div>
         <div className="min-w-0">

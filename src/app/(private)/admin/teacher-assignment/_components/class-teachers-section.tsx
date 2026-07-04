@@ -38,7 +38,7 @@ function ClassTeacherRow({
   return (
     <div className="flex items-center justify-between gap-3 py-3 px-4 bg-muted border border-border rounded">
       <div className="flex items-center gap-3 min-w-0">
-        <div className="size-8 rounded-lg bg-primary text-primary-foreground flex items-center justify-center text-xs font-body font-medium shrink-0">
+        <div className="size-8 rounded-full bg-foreground image-border text-primary-foreground flex items-center justify-center text-xs font-body font-medium shrink-0">
           {teacher.teacher.name
             .split(' ')
             .map((n) => n[0])

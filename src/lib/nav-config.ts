@@ -53,13 +53,9 @@ const adminNav: NavConfig = {
       icon: UserCheck,
     },
     {
-      title: 'Fees',
-      url: '#',
+      title: 'Fee Structures',
+      url: '/admin/fee-structures',
       icon: Banknote,
-      items: [
-        { title: 'Fee Types', url: '/admin/fee-types' },
-        { title: 'Fee Structures', url: '/admin/fee-structures' },
-      ],
     },
     {
       title: 'Timetable',
