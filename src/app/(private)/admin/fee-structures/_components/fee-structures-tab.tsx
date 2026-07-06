@@ -67,7 +67,7 @@ export function FeeStructuresTab() {
             {Array.from({ length: 3 }).map((_, i) => (
               <div
                 key={i}
-                className="bg-card border border-border p-5 flex flex-col gap-4"
+                className="bg-card/40 border border-border p-5 flex flex-col gap-4"
               >
                 <div className="flex items-center justify-between">
                   <div className="h-5 w-32 bg-muted animate-pulse rounded" />

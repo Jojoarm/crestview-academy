@@ -59,12 +59,8 @@ const adminNav: NavConfig = {
     },
     {
       title: 'Timetable',
-      url: '#',
+      url: '/admin/timetable',
       icon: CalendarClock,
-      items: [
-        { title: 'Period Slots', url: '/admin/period-slots' },
-        { title: 'Class Timetables', url: '/admin/timetable' },
-      ],
     },
     {
       title: 'Posts',
