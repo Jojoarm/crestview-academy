@@ -67,7 +67,7 @@ export function FeeStructuresTab() {
             {Array.from({ length: 3 }).map((_, i) => (
               <div
                 key={i}
-                className="bg-card/40 border border-border p-5 flex flex-col gap-4"
+                className="bg-card/30 border border-border p-5 flex flex-col gap-4"
               >
                 <div className="flex items-center justify-between">
                   <div className="h-5 w-32 bg-muted animate-pulse rounded" />
@@ -86,8 +86,8 @@ export function FeeStructuresTab() {
             ))}
           </div>
         ) : feeTypes.length === 0 ? (
-          <div className="bg-card border border-border p-12 text-center">
-            <p className="font-body text-sm text-muted-foreground">
+          <div className="bg-card/30 border border-border p-12 text-center">
+            <p className="font-body text-sm text-deep-violet">
               No fee types yet. Create a fee type first, then add structures to
               it.
             </p>

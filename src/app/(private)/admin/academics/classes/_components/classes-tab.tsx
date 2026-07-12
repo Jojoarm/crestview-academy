@@ -71,7 +71,7 @@ export function ClassesTab() {
             {Array.from({ length: 6 }).map((_, i) => (
               <div
                 key={i}
-                className="bg-card border border-border p-5 flex flex-col gap-3"
+                className="bg-card/30 border border-border p-5 flex flex-col gap-3"
               >
                 <div className="h-5 w-32 bg-muted animate-pulse rounded" />
                 <div className="h-3 w-24 bg-muted animate-pulse rounded" />
@@ -81,8 +81,8 @@ export function ClassesTab() {
             ))}
           </div>
         ) : classes.length === 0 ? (
-          <div className="bg-card border border-border p-12 text-center">
-            <p className="font-body text-sm text-muted-foreground">
+          <div className="bg-card/30 border border-border p-12 text-center">
+            <p className="font-body text-sm text-deep-violet">
               No classes found. Create one to get started.
             </p>
           </div>

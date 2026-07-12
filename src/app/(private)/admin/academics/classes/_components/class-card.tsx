@@ -55,7 +55,7 @@ export function ClassCard({ classLevel, onEdit }: Props) {
         <div className="flex items-start justify-between gap-2">
           <div className="min-w-0">
             <div className="flex items-center gap-2 flex-wrap">
-              <h3 className="font-heading text-lg text-foreground truncate">
+              <h3 className="font-sans font-medium text-lg text-foreground truncate">
                 {classLevel.name}
               </h3>
               <span
@@ -107,7 +107,7 @@ export function ClassCard({ classLevel, onEdit }: Props) {
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={() => setDeleteOpen(true)}
-                className="font-body cursor-pointer text-red-600 focus:text-red-600"
+                className="font-body cursor-pointer text-red-600 focus:text-white"
               >
                 <Trash2 className="size-4" />
                 Delete class

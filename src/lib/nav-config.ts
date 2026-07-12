@@ -33,9 +33,15 @@ const adminNav: NavConfig = {
       icon: LayoutDashboard,
     },
     {
-      title: 'Users',
-      url: '/admin/users',
+      title: 'User Management',
+      url: '#',
       icon: Users,
+      items: [
+        { title: 'Teachers', url: '/admin/users/teachers' },
+        { title: 'Students', url: '/admin/users/students' },
+        { title: 'Parents', url: '/admin/users/parents' },
+        { title: 'Admins', url: '/admin/users/admins' },
+      ],
     },
     {
       title: 'Academics',

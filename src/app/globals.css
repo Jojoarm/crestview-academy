@@ -113,7 +113,7 @@
   }
 
   .image-border {
-    @apply shadow-md border border-card shadow-gray-200;
+    @apply shadow-md border border-border/20 shadow-gray-200;
   }
 }
 

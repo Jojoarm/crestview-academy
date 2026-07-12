@@ -32,7 +32,7 @@ function SubjectTeacherRow({
         teacherId: subjectTeacher.teacherId,
       });
       toast.success(
-        `${subjectTeacher.teacher.name} removed from ${subjectTeacher.subject.name}`,
+        `${subjectTeacher.teacher.user.name} removed from ${subjectTeacher.subject.name}`,
       );
     } catch (error) {
       toast.error(
@@ -52,7 +52,7 @@ function SubjectTeacherRow({
             {subjectTeacher.subject.name}
           </p>
           <p className="font-body text-xs text-muted-foreground truncate">
-            {subjectTeacher.teacher.name}
+            {subjectTeacher.teacher.user.name}
           </p>
         </div>
       </div>

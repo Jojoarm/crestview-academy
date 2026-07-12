@@ -13,7 +13,7 @@ import type { LucideIcon } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { useEffect, useState } from 'react';
 
-// ─── Types ───────────────────────────────────────────────────────────────────
+// Types
 
 type RoleKey = 'teachers' | 'admins' | 'parents' | 'students';
 

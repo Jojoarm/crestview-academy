@@ -1,7 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiClient } from '@/lib/api-client';
 import type { PaginatedResponse } from '@/lib/types';
-import type { User } from '@/types/user';
+import type { ManagedUser } from '@/types/profile';
 import type { UserRole } from '@/lib/roles';
 
 type UsersParams = {
@@ -24,18 +24,6 @@ type UpdateUserPayload = {
   userRole?: UserRole;
 };
 
-type BanUserPayload = {
-  reason?: string;
-};
-
-type UserStats = {
-  total: number;
-  teachers: number;
-  parents: number;
-  students: number;
-  admins: number;
-};
-
 export function useUsers(params: UsersParams = {}) {
   const { page = 1, limit = 10, role, search } = params;
 
@@ -43,15 +31,13 @@ export function useUsers(params: UsersParams = {}) {
     queryKey: ['users', { page, limit, role, search }],
     queryFn: () => {
       const qs = new URLSearchParams();
-
       qs.set('page', String(page));
       qs.set('limit', String(limit));
-
-      if (role) qs.set('userRole', role);
-
-      if (search?.trim()) qs.set('search', search.trim());
-
-      return apiClient.get<PaginatedResponse<User>>(`/api/admin/users?${qs}`);
+      if (role) qs.set('role', role);
+      if (search) qs.set('search', search);
+      return apiClient.get<PaginatedResponse<ManagedUser>>(
+        `/api/admin/users?${qs}`,
+      );
     },
   });
 }
@@ -59,61 +45,88 @@ export function useUsers(params: UsersParams = {}) {
 export function useUserStats() {
   return useQuery({
     queryKey: ['user-stats'],
-    queryFn: () => apiClient.get<UserStats>('/api/admin/users/stats'),
+    queryFn: () =>
+      apiClient.get<{
+        total: number;
+        teachers: number;
+        parents: number;
+        students: number;
+        admins: number;
+      }>('/api/admin/users/stats'),
   });
 }
 
-export function useCreateUser() {
+export function useCreateUser(invalidateKey?: string) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (payload: CreateUserPayload) =>
-      apiClient.post<User>('/api/admin/users', payload),
+      apiClient.post<ManagedUser>('/api/admin/users', payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['users'] });
       queryClient.invalidateQueries({ queryKey: ['user-stats'] });
+      if (invalidateKey) {
+        queryClient.invalidateQueries({ queryKey: [invalidateKey] });
+      }
     },
   });
 }
 
-export function useUpdateUser(id: string) {
+export function useUpdateUser(id: string, invalidateKey?: string) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: (payload: UpdateUserPayload) =>
-      apiClient.patch<User>(`/api/admin/users/${id}`, payload),
+      apiClient.patch<ManagedUser>(`/api/admin/users/${id}`, payload),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['users'] });
+
+      if (invalidateKey) {
+        queryClient.invalidateQueries({ queryKey: [invalidateKey] });
+      }
     },
   });
 }
 
-export function useBanUser(id: string) {
+export function useBanUser(id: string, invalidateKey?: string) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (payload: { reason?: string }) =>
+      apiClient.patch<ManagedUser>(`/api/admin/users/${id}/ban`, payload),
+
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['users'] });
+
+      if (invalidateKey) {
+        queryClient.invalidateQueries({ queryKey: [invalidateKey] });
+      }
+    },
+  });
+}
+
+export function useUnbanUser(id: string, invalidateKey?: string) {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: (payload: BanUserPayload) =>
-      apiClient.patch<User>(`/api/admin/users/${id}/ban`, payload),
+    mutationFn: () =>
+      apiClient.patch<ManagedUser>(`/api/admin/users/${id}/unban`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['users'] });
+      if (invalidateKey) {
+        queryClient.invalidateQueries({ queryKey: [invalidateKey] });
+      }
     },
   });
 }
 
-export function useUnbanUser(id: string) {
-  const queryClient = useQueryClient();
-  return useMutation({
-    mutationFn: () => apiClient.patch<User>(`/api/admin/users/${id}/unban`),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['users'] });
-    },
-  });
-}
-
-export function useDeleteUser(id: string) {
+export function useDeleteUser(id: string, invalidateKey?: string) {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: () => apiClient.delete(`/api/admin/users/${id}`),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ['users'] });
       queryClient.invalidateQueries({ queryKey: ['user-stats'] });
+      if (invalidateKey) {
+        queryClient.invalidateQueries({ queryKey: [invalidateKey] });
+      }
     },
   });
 }

@@ -1,5 +1,3 @@
-// src/app/(private)/admin/users/_components/delete-user-dialog.tsx
-
 'use client';
 
 import { toast } from 'sonner';

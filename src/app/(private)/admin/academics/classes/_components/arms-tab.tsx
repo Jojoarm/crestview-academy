@@ -53,7 +53,9 @@ export function ArmsTab() {
       <div className="flex flex-col gap-5">
         <div className="flex items-center justify-between">
           <div>
-            <h2 className="font-heading text-lg text-foreground">Arms</h2>
+            <h2 className="font-sans font-semibold text-lg text-foreground">
+              Arms
+            </h2>
             <p className="font-body text-xs text-muted-foreground mt-0.5">
               School-wide arms shared across all classes
             </p>

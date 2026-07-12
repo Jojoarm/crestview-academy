@@ -1,3 +1,5 @@
+import { toast } from 'sonner';
+
 type ApiSuccess<T> = {
   success: true;
   message: string;
@@ -53,6 +55,7 @@ async function request<T>(
   const json = (await res.json()) as ApiSuccess<T> | ApiFailure;
 
   if (!json.success) {
+    toast.error(json.message);
     throw new ApiError(json.message, res.status);
   }
 

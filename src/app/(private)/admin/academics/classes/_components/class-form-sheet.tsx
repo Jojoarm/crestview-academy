@@ -92,7 +92,7 @@ export function ClassFormSheet({ open, onOpenChange, classLevel }: Props) {
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent className="bg-background border-border w-full sm:max-w-md overflow-y-auto">
         <SheetHeader className="mb-6">
-          <SheetTitle className="font-heading text-xl text-foreground">
+          <SheetTitle className="font-sans font-semibold text-xl text-foreground">
             {isEdit ? 'Edit Class' : 'New Class'}
           </SheetTitle>
           <SheetDescription className="font-body text-sm text-muted-foreground">

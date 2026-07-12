@@ -21,11 +21,16 @@ export const POST_STATUS_COLORS: Record<PostStatus, string> = {
   Published: 'bg-terracotta-pale text-primary',
 };
 
-export type PostAuthor = {
+export type PostAuthorUser = {
   id: string;
   name: string;
   email: string;
   userRole: string;
+};
+
+export type PostAuthor = {
+  id: string;
+  user: PostAuthorUser;
 };
 
 export type Post = {

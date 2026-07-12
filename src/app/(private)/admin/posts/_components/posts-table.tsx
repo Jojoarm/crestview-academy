@@ -42,7 +42,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { cn } from '@/lib/utils';
+import { cn, getInitials } from '@/lib/utils';
 import { usePosts, usePublishPost } from '@/hooks/admin/use-posts';
 import { useDebounce } from '@/hooks/use-debounce';
 import { ApiError } from '@/lib/api-client';
@@ -66,15 +66,6 @@ function formatDate(dateString: string) {
     month: 'short',
     year: 'numeric',
   });
-}
-
-function getInitials(name: string) {
-  return name
-    .split(' ')
-    .map((n) => n[0])
-    .slice(0, 2)
-    .join('')
-    .toUpperCase();
 }
 
 export function PostsTable() {
@@ -196,10 +187,10 @@ export function PostsTable() {
     {
       header: 'Author',
       cell: ({ row }) => {
-        const author = row.original.author;
+        const author = row.original.author.user;
         return (
           <div className="flex items-center gap-2">
-            <div className="size-7 rounded-lg bg-primary text-primary-foreground flex items-center justify-center text-xs font-body font-medium shrink-0">
+            <div className="size-7 rounded-full bg-deep-violet text-primary-foreground flex items-center justify-center text-xs font-body font-medium shrink-0">
               {getInitials(author.name)}
             </div>
             <p className="font-body text-xs text-muted-foreground truncate max-w-24">
@@ -224,6 +215,7 @@ export function PostsTable() {
     },
     {
       id: 'actions',
+      header: 'Actions',
       cell: ({ row }) => {
         const post = row.original;
         return (
@@ -255,7 +247,7 @@ export function PostsTable() {
               <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={() => setDeletingPost(post)}
-                className="font-body cursor-pointer text-red-600 focus:text-red-600"
+                className="font-body cursor-pointer text-red-600 focus:text-white"
               >
                 <Trash2 className="size-4" />
                 Delete

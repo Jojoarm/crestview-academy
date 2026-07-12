@@ -1,5 +1,3 @@
-// src/app/(private)/admin/users/_components/ban-user-dialog.tsx
-
 'use client';
 
 import { Controller, useForm } from 'react-hook-form';

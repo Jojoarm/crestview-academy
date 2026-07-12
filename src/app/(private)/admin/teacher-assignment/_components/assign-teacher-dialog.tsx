@@ -29,13 +29,11 @@ import {
   useAssignClassTeacher,
   useAssignSubjectTeacher,
 } from '@/hooks/admin/use-teacher-assignments';
-import { useUsers } from '@/hooks/admin/use-users';
+import { useTeachers } from '@/hooks/admin/use-teachers';
 import { useSubjects } from '@/hooks/admin/use-subjects';
 import { ApiError } from '@/lib/api-client';
 import type { SubjectTeacher } from '@/types/teacher-assignment';
 import type { Section } from '@/types/class';
-
-// Schemas
 
 const classTeacherSchema = z.object({
   teacherId: z.string().min(1, 'Select a teacher'),
@@ -49,8 +47,6 @@ const subjectTeacherSchema = z.object({
 });
 
 type SubjectTeacherForm = z.infer<typeof subjectTeacherSchema>;
-
-// Props
 
 type Props =
   | {
@@ -72,8 +68,6 @@ type Props =
       section: string;
     };
 
-// Class Teacher Content
-
 function ClassTeacherDialogContent({
   classArmId,
   assignedTeacherIds,
@@ -84,9 +78,10 @@ function ClassTeacherDialogContent({
   onClose: () => void;
 }) {
   const assignClassTeacher = useAssignClassTeacher(classArmId);
-  const { data: usersData } = useUsers({ role: 'teacher', limit: 100 });
-  const teachers = (usersData?.data ?? []).filter(
-    (u) => !assignedTeacherIds.includes(u.id),
+  // Fetch teachers from /api/admin/teachers — use teacher.id not user.id
+  const { data: teachersData } = useTeachers({ limit: 100 });
+  const teachers = (teachersData?.data ?? []).filter(
+    (t) => !assignedTeacherIds.includes(t.id),
   );
 
   const form = useForm<ClassTeacherForm>({
@@ -136,7 +131,10 @@ function ClassTeacherDialogContent({
                   ) : (
                     teachers.map((t) => (
                       <SelectItem key={t.id} value={t.id} className="font-body">
-                        {t.name}
+                        {t.user.name}
+                        <span className="text-muted-foreground ml-1 text-xs">
+                          · {t.employeeId}
+                        </span>
                       </SelectItem>
                     ))
                   )}
@@ -169,8 +167,6 @@ function ClassTeacherDialogContent({
   );
 }
 
-// Subject Teacher Content
-
 function SubjectTeacherDialogContent({
   classArmId,
   existingSubjectTeachers,
@@ -183,13 +179,13 @@ function SubjectTeacherDialogContent({
   onClose: () => void;
 }) {
   const assignSubjectTeacher = useAssignSubjectTeacher(classArmId);
-  const { data: usersData } = useUsers({ role: 'teacher', limit: 100 });
+  const { data: teachersData } = useTeachers({ limit: 100 });
   const { data: subjectsData } = useSubjects({
     section: section as Section,
     limit: 100,
   });
 
-  const teachers = usersData?.data ?? [];
+  const teachers = teachersData?.data ?? [];
   const subjects = subjectsData?.data ?? [];
   const assignedSubjectIds = existingSubjectTeachers.map((st) => st.subjectId);
   const availableSubjects = subjects.filter(
@@ -283,7 +279,10 @@ function SubjectTeacherDialogContent({
                   ) : (
                     teachers.map((t) => (
                       <SelectItem key={t.id} value={t.id} className="font-body">
-                        {t.name}
+                        {t.user.name}
+                        <span className="text-muted-foreground ml-1 text-xs">
+                          · {t.employeeId}
+                        </span>
                       </SelectItem>
                     ))
                   )}
@@ -315,8 +314,6 @@ function SubjectTeacherDialogContent({
     </form>
   );
 }
-
-// Main Dialog
 
 export function AssignTeacherDialog({
   open,

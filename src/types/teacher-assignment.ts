@@ -1,8 +1,13 @@
-export type AssignmentTeacher = {
+export type AssignmentTeacherUser = {
   id: string;
   name: string;
   email: string;
-  userRole: 'teacher';
+  userRole: string;
+};
+
+export type AssignmentTeacher = {
+  id: string;
+  user: AssignmentTeacherUser;
 };
 
 export type AssignmentSubject = {

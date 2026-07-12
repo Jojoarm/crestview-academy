@@ -118,7 +118,7 @@ export function FeeTypeFormSheet({ open, onOpenChange, feeType }: Props) {
     <Sheet open={open} onOpenChange={onOpenChange}>
       <SheetContent className="bg-background border-border w-full sm:max-w-md overflow-y-auto">
         <SheetHeader className="mb-6">
-          <SheetTitle className="font-heading text-xl text-foreground">
+          <SheetTitle className="font-sans font-semibold text-xl text-foreground">
             {isEdit ? 'Edit Fee Type' : 'New Fee Type'}
           </SheetTitle>
           <SheetDescription className="font-body text-sm text-muted-foreground">
@@ -128,7 +128,7 @@ export function FeeTypeFormSheet({ open, onOpenChange, feeType }: Props) {
           </SheetDescription>
         </SheetHeader>
 
-        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 px-4">
           <p className="font-body text-xs font-medium uppercase tracking-widest text-terracotta-light">
             01 — Details
           </p>

@@ -27,7 +27,7 @@ function ClassTeacherRow({
   async function handleRemove() {
     try {
       await removeTeacher.mutateAsync(teacher.teacherId);
-      toast.success(`${teacher.teacher.name} removed`);
+      toast.success(`${teacher.teacher.user.name} removed`);
     } catch (error) {
       toast.error(
         error instanceof ApiError ? error.message : 'Failed to remove teacher',
@@ -39,7 +39,7 @@ function ClassTeacherRow({
     <div className="flex items-center justify-between gap-3 py-3 px-4 bg-muted border border-border rounded">
       <div className="flex items-center gap-3 min-w-0">
         <div className="size-8 rounded-full bg-foreground image-border text-primary-foreground flex items-center justify-center text-xs font-body font-medium shrink-0">
-          {teacher.teacher.name
+          {teacher.teacher.user.name
             .split(' ')
             .map((n) => n[0])
             .slice(0, 2)
@@ -48,10 +48,10 @@ function ClassTeacherRow({
         </div>
         <div className="min-w-0">
           <p className="font-body text-sm font-medium text-foreground truncate">
-            {teacher.teacher.name}
+            {teacher.teacher.user.name}
           </p>
           <p className="font-body text-xs text-muted-foreground truncate">
-            {teacher.teacher.email}
+            {teacher.teacher.user.email}
           </p>
         </div>
       </div>

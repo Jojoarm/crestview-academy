@@ -154,7 +154,7 @@ export function SubjectsTable() {
             >
               <DropdownMenuItem
                 onClick={() => {
-                  setAssignmentsSubjectId(subject.id);
+                  setEditingSubject(subject);
                   setFormSheetOpen(true);
                 }}
                 className="font-body cursor-pointer"
