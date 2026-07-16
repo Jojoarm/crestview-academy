@@ -1,47 +1,79 @@
 'use client';
 
+import Link from 'next/link';
+import { Fragment } from 'react';
 import { usePathname } from 'next/navigation';
 import { Separator } from '@/components/ui/separator';
 import { SidebarTrigger } from '@/components/ui/sidebar';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb';
 
-const PATH_TITLES: Record<string, string> = {
-  '/admin': 'Dashboard',
-  '/admin/users': 'Users',
-  '/admin/sessions': 'Sessions & Terms',
-  '/admin/classes': 'Classes & Arms',
-  '/admin/subjects': 'Subjects',
-  '/admin/teacher-assignments': 'Teacher Assignments',
-  '/admin/fee-structures': 'Fee Structure',
-  '/admin/timetable': 'Timetable',
-  '/admin/posts': 'Posts',
-  '/admin/settings': 'Settings',
-  '/admin/profile': 'Profile',
-};
+const DASHBOARD_ROUTES = ['admin', 'teacher', 'student', 'parent'];
 
-function getPageTitle(pathname: string): string {
-  // Exact match first
-  if (PATH_TITLES[pathname]) return PATH_TITLES[pathname];
-
-  // Find the longest matching prefix for nested routes (e.g. /admin/users/create)
-  const match = Object.keys(PATH_TITLES)
-    .filter((key) => pathname.startsWith(key) && key !== '/admin')
-    .sort((a, b) => b.length - a.length)[0];
-
-  return match ? PATH_TITLES[match] : 'Dashboard';
+function formatTitle(segment: string) {
+  return segment
+    .split('-')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
 }
 
 export function SiteHeader() {
   const pathname = usePathname();
-  const title = getPageTitle(pathname);
+
+  const segments = pathname.split('/').filter(Boolean);
+
+  const breadcrumbs = segments.map((segment, index) => ({
+    href: '/' + segments.slice(0, index + 1).join('/'),
+    label:
+      index === 0 && DASHBOARD_ROUTES.includes(segment)
+        ? 'Dashboard'
+        : formatTitle(segment),
+  }));
 
   return (
-    <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b border-(--border-sand) transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
-      <div className="flex w-full items-center gap-1 px-4 lg:gap-2 lg:px-6">
+    <header className="flex h-(--header-height) shrink-0 items-center border-b border-(--border-sand) transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
+      <div className="flex w-full items-center gap-2 px-4 lg:px-6">
         <SidebarTrigger className="-ml-1 text-(--charcoal)" />
-        <Separator orientation="vertical" className="mx-2 bg-(--border-sand)" />
-        <h1 className="text-base font-medium font-body text-(--charcoal)">
-          {title}
-        </h1>
+
+        <Separator
+          orientation="vertical"
+          className="mx-2 h-5 bg-(--border-sand)"
+        />
+
+        <Breadcrumb>
+          <BreadcrumbList>
+            {breadcrumbs.map((crumb, index) => {
+              const isLast = index === breadcrumbs.length - 1;
+
+              return (
+                <Fragment key={crumb.href}>
+                  <BreadcrumbItem>
+                    {isLast ? (
+                      <BreadcrumbPage className="font-body text-(--charcoal)">
+                        {crumb.label}
+                      </BreadcrumbPage>
+                    ) : (
+                      <BreadcrumbLink
+                        asChild
+                        className="font-body text-(--charcoal-100) hover:text-terracotta"
+                      >
+                        <Link href={crumb.href}>{crumb.label}</Link>
+                      </BreadcrumbLink>
+                    )}
+                  </BreadcrumbItem>
+
+                  {!isLast && <BreadcrumbSeparator />}
+                </Fragment>
+              );
+            })}
+          </BreadcrumbList>
+        </Breadcrumb>
       </div>
     </header>
   );

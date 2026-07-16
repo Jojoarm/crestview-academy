@@ -15,7 +15,7 @@ export function UpcomingEventsList({ events, isLoading }: Props) {
   return (
     <Card className="p-5 flex flex-col gap-4">
       <div className="flex items-center justify-between">
-        <h2 className="font-heading text-base text-foreground">
+        <h2 className="font-sans font-semibold text-base text-foreground">
           Upcoming Events
         </h2>
         <Link

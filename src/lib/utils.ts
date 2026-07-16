@@ -1,3 +1,4 @@
+import { AttendanceStatus } from '@/types/teacher/attendance';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
@@ -45,3 +46,24 @@ export function getDaysUntil(dateString: string) {
   if (days === 1) return 'Tomorrow';
   return `In ${days} days`;
 }
+
+export function formatClassArmLabel(classArm: {
+  classLevel: { name: string };
+  arm: { name: string };
+}): string {
+  return `${classArm.classLevel.name} ${classArm.arm.name}`;
+}
+
+export const ATTENDANCE_STATUSES: AttendanceStatus[] = [
+  'Present',
+  'Absent',
+  'Late',
+  'Excused',
+];
+
+export const ATTENDANCE_STATUS_COLORS: Record<AttendanceStatus, string> = {
+  Present: 'bg-emerald-100 text-emerald-700',
+  Absent: 'bg-red-100 text-red-700',
+  Late: 'bg-amber-100 text-amber-700',
+  Excused: 'bg-light-violet text-deep-violet',
+};

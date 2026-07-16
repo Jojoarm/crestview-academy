@@ -42,7 +42,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import { cn, getInitials } from '@/lib/utils';
+import { cn, formatDate, getInitials } from '@/lib/utils';
 import { usePosts, usePublishPost } from '@/hooks/admin/use-posts';
 import { useDebounce } from '@/hooks/use-debounce';
 import { ApiError } from '@/lib/api-client';
@@ -59,14 +59,6 @@ import {
 import { PostFormSheet } from './post-form-sheet';
 import { DeletePostDialog } from './delete-post-dialog';
 import { Pagination } from '@/components/Pagination';
-
-function formatDate(dateString: string) {
-  return new Date(dateString).toLocaleDateString('en-GB', {
-    day: 'numeric',
-    month: 'short',
-    year: 'numeric',
-  });
-}
 
 export function PostsTable() {
   const [page, setPage] = useState(1);

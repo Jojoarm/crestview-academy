@@ -10,7 +10,6 @@ import {
 } from '@/components/ui/collapsible';
 import {
   SidebarGroup,
-  // SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuAction,
   SidebarMenuButton,
@@ -21,6 +20,8 @@ import {
 } from '@/components/ui/sidebar';
 import type { NavItem } from '@/lib/nav-config';
 
+const dashboardRoots = ['/admin', '/teacher', '/student', '/parent'];
+
 export function NavMain({ items }: { items: NavItem[] }) {
   const pathname = usePathname();
 
@@ -29,14 +30,15 @@ export function NavMain({ items }: { items: NavItem[] }) {
       return items.some((sub) => pathname.startsWith(sub.url));
     }
     // Exact match for dashboard, prefix match for everything else
-    return url === '/admin' ? pathname === '/admin' : pathname.startsWith(url);
+    if (dashboardRoots.includes(url)) {
+      return pathname === url;
+    }
+
+    return pathname.startsWith(url);
   }
 
   return (
     <SidebarGroup>
-      {/* <SidebarGroupLabel className="font-body text-xs uppercase tracking-widest text-terracotta-light">
-        Menu
-      </SidebarGroupLabel> */}
       <SidebarMenu>
         {items.map((item) => {
           const active = isActive(item.url, item.items);
@@ -48,7 +50,7 @@ export function NavMain({ items }: { items: NavItem[] }) {
                 <SidebarMenuButton
                   asChild
                   tooltip={item.title}
-                  isActive={active && !item.items?.length}
+                  isActive={active}
                 >
                   <Link href={item.items?.length ? '#' : item.url}>
                     <Icon className="size-4" />
@@ -70,7 +72,7 @@ export function NavMain({ items }: { items: NavItem[] }) {
                           <SidebarMenuSubItem key={subItem.title}>
                             <SidebarMenuSubButton
                               asChild
-                              isActive={pathname.startsWith(subItem.url)}
+                              isActive={isActive(subItem.url)}
                             >
                               <Link href={subItem.url}>
                                 <span className="font-body">

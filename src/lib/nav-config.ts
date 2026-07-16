@@ -6,6 +6,9 @@ import {
   Banknote,
   CalendarClock,
   Megaphone,
+  ClipboardList,
+  CalendarCheck,
+  NotebookPen,
 } from 'lucide-react';
 import type { UserRole } from './roles';
 
@@ -76,9 +79,40 @@ const adminNav: NavConfig = {
   ],
 };
 
+const teacherNav: NavConfig = {
+  navMain: [
+    {
+      title: 'Dashboard',
+      url: '/teacher',
+      icon: LayoutDashboard,
+    },
+    {
+      title: 'Profile',
+      url: '/teacher/profile',
+      icon: Users,
+    },
+    {
+      title: 'Assignments',
+      url: '/teacher/assignments',
+      icon: ClipboardList,
+    },
+    {
+      title: 'Attendance',
+      url: '/teacher/attendance',
+      icon: CalendarCheck,
+    },
+    {
+      title: 'Student Grading',
+      url: '/teacher/student-grading',
+      icon: NotebookPen,
+    },
+  ],
+};
+
 const navByRole: Partial<Record<UserRole, NavConfig>> = {
   super_admin: adminNav,
   admin: adminNav,
+  teacher: teacherNav,
 };
 
 export function getNavConfig(role: UserRole): NavConfig {
