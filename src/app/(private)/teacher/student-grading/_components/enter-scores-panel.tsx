@@ -28,17 +28,19 @@ interface ScoreDraft {
 interface EnterScoresPanelProps {
   classArmId: string;
   subjectOptions: SubjectOption[];
+  sessionId: string;
+  termId: string;
 }
 
 export function EnterScoresPanel({
   classArmId,
   subjectOptions,
+  sessionId,
+  termId,
 }: EnterScoresPanelProps) {
   const [subjectId, setSubjectId] = useState(
     subjectOptions[0]?.subjectId ?? '',
   );
-  // No entry means "not yet entered" — inputs start blank, same idea as
-  // attendance not defaulting to Present.
   const [drafts, setDrafts] = useState<Record<string, ScoreDraft>>({});
 
   useEffect(() => {
@@ -57,6 +59,8 @@ export function EnterScoresPanel({
   const { data: existing, isLoading: existingLoading } = useScores({
     classArmId,
     subjectId: subjectId || undefined,
+    sessionId,
+    termId,
     limit: 100,
   });
 
@@ -111,7 +115,13 @@ export function EnterScoresPanel({
     }
 
     try {
-      await markScores.mutateAsync({ classArmId, subjectId, records });
+      await markScores.mutateAsync({
+        classArmId,
+        subjectId,
+        records,
+        sessionId,
+        termId,
+      });
       toast.success('Scores saved');
     } catch (error) {
       toast.error(
@@ -170,6 +180,12 @@ export function EnterScoresPanel({
           </Button>
         </div>
       </div>
+
+      <p className="font-body text-xs text-muted-foreground mb-3">
+        Re-saving replaces the CA and exam score for any student included below
+        — this doesn&apos;t merge with what was there before, so make sure both
+        fields are correct before saving.
+      </p>
 
       {rosterError ? (
         <p className="font-body text-sm text-muted-foreground">

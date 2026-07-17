@@ -16,13 +16,24 @@ export interface MarkScoresInput {
   classArmId: string;
   subjectId: string;
   records: { studentId: string; caScore: number; examScore: number }[];
+  sessionId?: string;
+  termId?: string;
 }
 
 export interface ScoreListParams {
   classArmId: string;
   subjectId?: string;
+  sessionId?: string;
+  termId?: string;
   page?: number;
   limit?: number;
+}
+
+export interface ScoreListResponse {
+  term: { id: string; name: string };
+  session: { id: string; name: string };
+  data: ScoreListItem[];
+  meta: { total: number; page: number; limit: number; totalPages: number };
 }
 
 export interface UpdateScoreInput {

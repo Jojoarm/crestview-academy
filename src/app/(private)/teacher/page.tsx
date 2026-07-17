@@ -1,3 +1,5 @@
-export default function TeacherPage() {
-  return <div>Teacher Page</div>;
+import { TeacherDashboard } from './_components/teacher-dashboard';
+
+export default function TeacherDashboardPage() {
+  return <TeacherDashboard />;
 }

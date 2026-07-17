@@ -9,6 +9,8 @@ import {
   ClipboardList,
   CalendarCheck,
   NotebookPen,
+  ScrollText,
+  CalendarDays,
 } from 'lucide-react';
 import type { UserRole } from './roles';
 
@@ -102,9 +104,24 @@ const teacherNav: NavConfig = {
       icon: CalendarCheck,
     },
     {
+      title: 'My Timetable',
+      url: '/teacher/timetable',
+      icon: CalendarDays,
+    },
+    {
       title: 'Student Grading',
       url: '/teacher/student-grading',
       icon: NotebookPen,
+    },
+    {
+      title: 'Report Cards',
+      url: '/teacher/report-cards',
+      icon: ScrollText,
+    },
+    {
+      title: 'Announcements',
+      url: '/teacher/announcements',
+      icon: Megaphone,
     },
   ],
 };

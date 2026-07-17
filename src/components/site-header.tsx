@@ -55,13 +55,13 @@ export function SiteHeader() {
                 <Fragment key={crumb.href}>
                   <BreadcrumbItem>
                     {isLast ? (
-                      <BreadcrumbPage className="font-body text-(--charcoal)">
+                      <BreadcrumbPage className="font-body text-xs md:text-sm text-(--charcoal)">
                         {crumb.label}
                       </BreadcrumbPage>
                     ) : (
                       <BreadcrumbLink
                         asChild
-                        className="font-body text-(--charcoal-100) hover:text-terracotta"
+                        className="font-body text-xs md:text-sm text-(--charcoal-100) hover:text-terracotta"
                       >
                         <Link href={crumb.href}>{crumb.label}</Link>
                       </BreadcrumbLink>

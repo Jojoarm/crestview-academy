@@ -43,11 +43,15 @@ import {
 interface ScoresheetPanelProps {
   classArmId: string;
   subjectOptions: SubjectOption[];
+  sessionId: string;
+  termId: string;
 }
 
 export function ScoresheetPanel({
   classArmId,
   subjectOptions,
+  sessionId,
+  termId,
 }: ScoresheetPanelProps) {
   const [subjectId, setSubjectId] = useState(
     subjectOptions[0]?.subjectId ?? '',
@@ -62,11 +66,14 @@ export function ScoresheetPanel({
     }
     setPage(1);
     setEditingId(null);
-  }, [classArmId, subjectId, subjectOptions]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [classArmId, subjectOptions, sessionId, termId]);
 
   const { data, isLoading } = useScores({
     classArmId,
     subjectId: subjectId || undefined,
+    sessionId,
+    termId,
     page,
     limit: 20,
   });
@@ -195,7 +202,7 @@ export function ScoresheetPanel({
               onClick={cancelEdit}
               disabled={updateScore.isPending}
             >
-              <X className="size-4 text-primary" />
+              <X className="size-4 text-muted-foreground" />
             </Button>
           </div>
         ) : (
@@ -205,7 +212,7 @@ export function ScoresheetPanel({
             className="size-7"
             onClick={() => startEdit(row.original)}
           >
-            <Pencil className="size-4 text-deep-violet" />
+            <Pencil className="size-4" />
           </Button>
         ),
     },
@@ -237,10 +244,17 @@ export function ScoresheetPanel({
             ))}
           </SelectContent>
         </Select>
-
-        <p className="font-body text-xs text-muted-foreground">
-          {GRADE_SCALE.map((g) => `(${g.grade}) ${g.range}`).join(' · ')}
-        </p>
+        <div className="flex flex-wrap items-center gap-2">
+          {GRADE_SCALE.map((g) => (
+            <div
+              key={g.grade}
+              className="flex items-center gap-2 rounded-full border border-border bg-muted/50 px-3 py-1 text-xs"
+            >
+              <span className="font-semibold text-foreground">{g.grade}</span>
+              <span className="text-muted-foreground">{g.range}</span>
+            </div>
+          ))}
+        </div>
       </div>
 
       {subjectOptions.length === 0 ? (
