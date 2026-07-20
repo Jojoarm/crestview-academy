@@ -35,7 +35,6 @@ import {
 
 import { cn } from '@/lib/utils';
 import { ApiError } from '@/lib/api-client';
-import { useTeacherSessions } from '@/hooks/teacher/use-teacher-session';
 import {
   usePublishReportCard,
   useReportCard,
@@ -43,15 +42,21 @@ import {
   useUnpublishReportCard,
 } from '@/hooks/teacher/use-report-card';
 import { GRADE_COLORS } from '@/types/teacher/score';
+import { useTeacherSessions } from '@/hooks/teacher/use-teacher-session';
 
 interface ReportCardDetailProps {
   classArmId: string;
   studentId: string;
+  /** Carried over from the roster page's session picker, if the teacher
+   * navigated here from a non-active session — avoids bouncing back to
+   * "now" on load. */
+  initialSessionId?: string;
 }
 
 export function ReportCardDetail({
   classArmId,
   studentId,
+  initialSessionId,
 }: ReportCardDetailProps) {
   const router = useRouter();
 
@@ -64,15 +69,21 @@ export function ReportCardDetail({
     'publish' | 'unpublish' | null
   >(null);
 
-  // Default to the active session, and the active term within it.
+  // Default to whatever session we arrived with (from the roster page's
+  // picker), falling back to the active session if none was passed or it
+  // doesn't match a real session. Term defaults to that session's active
+  // term, or its first term for a past session.
   useEffect(() => {
     if (!sessions || sessions.length === 0 || sessionId) return;
-    const active = sessions.find((s) => s.isActive) ?? sessions[0];
+    const target =
+      (initialSessionId && sessions.find((s) => s.id === initialSessionId)) ||
+      sessions.find((s) => s.isActive) ||
+      sessions[0];
     // eslint-disable-next-line react-hooks/set-state-in-effect
-    setSessionId(active.id);
-    const activeTerm = active.terms.find((t) => t.isActive) ?? active.terms[0];
-    setTermId(activeTerm?.id ?? '');
-  }, [sessionId, sessions]);
+    setSessionId(target.id);
+    const targetTerm = target.terms.find((t) => t.isActive) ?? target.terms[0];
+    setTermId(targetTerm?.id ?? '');
+  }, [sessions, initialSessionId, sessionId]);
 
   const selectedSession = sessions?.find((s) => s.id === sessionId);
 
@@ -296,9 +307,8 @@ export function ReportCardDetail({
               </Table>
             )}
             <p className="font-body text-xs text-muted-foreground mt-3">
-              Scores are managed from Student Grading — corrections there
-              reflect here immediately, even after this report card is
-              published.
+              Scores are managed from Student Grading, corrections there reflect
+              here immediately, even after this report card is published.
             </p>
           </Card>
 
@@ -392,7 +402,7 @@ export function ReportCardDetail({
       >
         <AlertDialogContent className="bg-background border-border">
           <AlertDialogHeader>
-            <AlertDialogTitle className="font-heading text-lg">
+            <AlertDialogTitle className="font-sans font-semibold text-lg">
               {confirmAction === 'publish'
                 ? 'Publish report card'
                 : 'Unpublish report card'}

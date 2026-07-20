@@ -15,12 +15,11 @@ import { useTeacherClasses } from '@/hooks/teacher/use-classes';
 import { useTeacherSubjects } from '@/hooks/teacher/use-subjects';
 import { useClassArmSubjects } from '@/hooks/teacher/use-class-arm-subjects';
 import type { SubjectOption } from '@/types/teacher/score';
-
 import { EnterScoresPanel } from './enter-scores-panel';
 import { ScoresheetPanel } from './scoresheet-panel';
 import { TeacherClassArm } from '@/types/teacher/teacher';
-import { formatClassArmLabel } from '@/lib/utils';
 import { useTeacherSessions } from '@/hooks/teacher/use-teacher-session';
+import { formatClassArmLabel } from '@/lib/utils';
 
 interface ClassArmOption {
   classArmId: string;
@@ -29,10 +28,33 @@ interface ClassArmOption {
 }
 
 export function StudentGradingView() {
+  const { data: sessions, isLoading: sessionsLoading } = useTeacherSessions();
+  const [sessionId, setSessionId] = useState('');
+  const [termId, setTermId] = useState('');
+
+  useEffect(() => {
+    if (!sessions || sessions.length === 0 || sessionId) return;
+    const active = sessions.find((s) => s.isActive) ?? sessions[0];
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setSessionId(active.id);
+    const activeTerm = active.terms.find((t) => t.isActive) ?? active.terms[0];
+    setTermId(activeTerm?.id ?? '');
+  }, [sessionId, sessions]);
+
+  const selectedSession = sessions?.find((s) => s.id === sessionId);
+
+  function handleSessionChange(newSessionId: string) {
+    setSessionId(newSessionId);
+    const session = sessions?.find((s) => s.id === newSessionId);
+    const nextTerm =
+      session?.terms.find((t) => t.isActive) ?? session?.terms[0];
+    setTermId(nextTerm?.id ?? '');
+  }
+
   const { data: homeroomClasses, isLoading: classesLoading } =
-    useTeacherClasses();
+    useTeacherClasses(sessionId);
   const { data: subjectAssignments, isLoading: subjectsLoading } =
-    useTeacherSubjects();
+    useTeacherSubjects(sessionId);
 
   const [classArmId, setClassArmId] = useState('');
 
@@ -60,6 +82,11 @@ export function StudentGradingView() {
     return Array.from(map.values());
   }, [homeroomClasses, subjectAssignments]);
 
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setClassArmId('');
+  }, [sessionId]);
+
   const activeClassArmId = classArmId || classArmOptions[0]?.classArmId || '';
   const activeOption = classArmOptions.find(
     (o) => o.classArmId === activeClassArmId,
@@ -79,9 +106,9 @@ export function StudentGradingView() {
 
   // Class teachers can grade any subject offered at the class's level, not
   // just ones they personally teach — fetch the full class-level list only
-  // for them. Subject-only teachers keep using their own assignments.
+  // for them, scoped to the selected session.
   const { data: classLevelSubjects, isLoading: classLevelSubjectsLoading } =
-    useClassArmSubjects(activeClassArmId, isClassTeacherForActive);
+    useClassArmSubjects(activeClassArmId, isClassTeacherForActive, sessionId);
 
   const subjectOptions = useMemo<SubjectOption[]>(() => {
     if (isClassTeacherForActive) {
@@ -98,37 +125,11 @@ export function StudentGradingView() {
     }));
   }, [isClassTeacherForActive, classLevelSubjects, subjectsForClass]);
 
-  const { data: sessions, isLoading: sessionsLoading } = useTeacherSessions();
-  const [sessionId, setSessionId] = useState('');
-  const [termId, setTermId] = useState('');
-
   const isLoading =
+    sessionsLoading ||
     classesLoading ||
     subjectsLoading ||
-    sessionsLoading ||
     (isClassTeacherForActive && classLevelSubjectsLoading);
-
-  // Default to the active session, and the active term within it — same
-  // resolution rule as Report Cards.
-  useEffect(() => {
-    if (!sessions || sessions.length === 0 || sessionId) return;
-    const active = sessions.find((s) => s.isActive) ?? sessions[0];
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setSessionId(active.id);
-    const activeTerm = active.terms.find((t) => t.isActive) ?? active.terms[0];
-    setTermId(activeTerm?.id ?? '');
-  }, [sessionId, sessions]);
-
-  const selectedSession = sessions?.find((s) => s.id === sessionId);
-
-  function handleSessionChange(newSessionId: string) {
-    setSessionId(newSessionId);
-    const session = sessions?.find((s) => s.id === newSessionId);
-    // Past sessions have no active term — default to the first one instead.
-    const nextTerm =
-      session?.terms.find((t) => t.isActive) ?? session?.terms[0];
-    setTermId(nextTerm?.id ?? '');
-  }
 
   if (isLoading) {
     return <div className="h-40 w-full animate-pulse rounded-xl bg-muted" />;
@@ -136,57 +137,47 @@ export function StudentGradingView() {
 
   if (classArmOptions.length === 0) {
     return (
-      <div className="rounded-xl border border-border p-8 text-center">
-        <p className="font-body text-sm text-muted-foreground">
-          You don&apos;t have any class or subject assignments this session, so
-          there&apos;s nothing to grade here.
-        </p>
+      <div className="space-y-6">
+        <SessionTermPicker
+          sessions={sessions}
+          sessionId={sessionId}
+          termId={termId}
+          selectedSession={selectedSession}
+          onSessionChange={handleSessionChange}
+          onTermChange={setTermId}
+        />
+        <div className="rounded-xl border border-border p-8 text-center">
+          <p className="font-body text-sm text-muted-foreground">
+            You don&apos;t have any class or subject assignments for{' '}
+            {selectedSession?.name ?? 'this session'}, so there&apos;s nothing
+            to grade here.
+          </p>
+        </div>
       </div>
     );
   }
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col lg:flex-row items-center justify-between">
+      <div className="flex items-center justify-between">
         <div>
-          <h1 className="font-sans font-semibold text-lg md:text-xl lg:text-2xl text-foreground">
+          <h1 className="font-sans font-semibold text-2xl text-foreground">
             Student Grading
           </h1>
-          <p className="font-body text-xs md:text-sm text-muted-foreground">
+          <p className="font-body text-sm text-muted-foreground">
             Enter CA and exam scores, and review scoresheets for your classes.
           </p>
         </div>
 
         <div className="flex flex-wrap items-center gap-3">
-          <Select value={sessionId} onValueChange={handleSessionChange}>
-            <SelectTrigger className="w-36 h-9 border-border font-body text-sm">
-              <SelectValue placeholder="Session" />
-            </SelectTrigger>
-            <SelectContent className="bg-background border-border shadow-lg">
-              {sessions?.map((s) => (
-                <SelectItem key={s.id} value={s.id} className="font-body">
-                  {s.name}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-
-          <Select
-            value={termId}
-            onValueChange={setTermId}
-            disabled={!selectedSession}
-          >
-            <SelectTrigger className="w-32 h-9 border-border font-body text-sm">
-              <SelectValue placeholder="Term" />
-            </SelectTrigger>
-            <SelectContent className="bg-background border-border shadow-lg">
-              {selectedSession?.terms.map((t) => (
-                <SelectItem key={t.id} value={t.id} className="font-body">
-                  {t.name} Term
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
+          <SessionTermPicker
+            sessions={sessions}
+            sessionId={sessionId}
+            termId={termId}
+            selectedSession={selectedSession}
+            onSessionChange={handleSessionChange}
+            onTermChange={setTermId}
+          />
 
           {classArmOptions.length > 1 && (
             <Select value={activeClassArmId} onValueChange={setClassArmId}>
@@ -235,6 +226,56 @@ export function StudentGradingView() {
           />
         </TabsContent>
       </Tabs>
+    </div>
+  );
+}
+
+function SessionTermPicker({
+  sessions,
+  sessionId,
+  termId,
+  selectedSession,
+  onSessionChange,
+  onTermChange,
+}: {
+  sessions: { id: string; name: string }[] | undefined;
+  sessionId: string;
+  termId: string;
+  selectedSession: { terms: { id: string; name: string }[] } | undefined;
+  onSessionChange: (sessionId: string) => void;
+  onTermChange: (termId: string) => void;
+}) {
+  return (
+    <div className="flex items-center gap-3">
+      <Select value={sessionId} onValueChange={onSessionChange}>
+        <SelectTrigger className="w-36 h-9 border-border font-body text-sm">
+          <SelectValue placeholder="Session" />
+        </SelectTrigger>
+        <SelectContent className="bg-background border-border shadow-lg">
+          {sessions?.map((s) => (
+            <SelectItem key={s.id} value={s.id} className="font-body">
+              {s.name}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+
+      <Select
+        value={termId}
+        onValueChange={onTermChange}
+        disabled={!selectedSession}
+      >
+        <SelectTrigger className="w-32 h-9 border-border font-body text-sm">
+          <SelectValue placeholder="Term" />
+        </SelectTrigger>
+        <SelectContent className="bg-background border-border shadow-lg">
+          {selectedSession?.terms.map((t) => (
+            <SelectItem key={t.id} value={t.id} className="font-body">
+              {t.name} Term
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
     </div>
   );
 }

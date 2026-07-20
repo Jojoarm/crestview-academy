@@ -41,6 +41,7 @@ export function EnterScoresPanel({
   const [subjectId, setSubjectId] = useState(
     subjectOptions[0]?.subjectId ?? '',
   );
+  // No entry means "not yet entered" — inputs start blank
   const [drafts, setDrafts] = useState<Record<string, ScoreDraft>>({});
 
   useEffect(() => {
@@ -54,7 +55,7 @@ export function EnterScoresPanel({
     data: roster,
     isLoading: rosterLoading,
     error: rosterError,
-  } = useClassArmStudents(classArmId);
+  } = useClassArmStudents(classArmId, sessionId);
 
   const { data: existing, isLoading: existingLoading } = useScores({
     classArmId,
@@ -181,12 +182,6 @@ export function EnterScoresPanel({
         </div>
       </div>
 
-      <p className="font-body text-xs text-muted-foreground mb-3">
-        Re-saving replaces the CA and exam score for any student included below
-        — this doesn&apos;t merge with what was there before, so make sure both
-        fields are correct before saving.
-      </p>
-
       {rosterError ? (
         <p className="font-body text-sm text-muted-foreground">
           {rosterError instanceof ApiError
@@ -208,7 +203,7 @@ export function EnterScoresPanel({
         </p>
       ) : (
         <div className="overflow-x-auto">
-          <table className="w-full min-w-[480px] text-sm">
+          <table className="w-full min-w-120 text-sm">
             <thead>
               <tr className="border-b border-border/30">
                 <th className="text-left font-body font-semibold text-xs uppercase tracking-wide text-muted-foreground py-2 pr-3">
