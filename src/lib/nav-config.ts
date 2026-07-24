@@ -125,11 +125,36 @@ const teacherNav: NavConfig = {
     },
   ],
 };
+const parentNav: NavConfig = {
+  navMain: [
+    {
+      title: 'Dashboard',
+      url: '/parent',
+      icon: LayoutDashboard,
+    },
+    {
+      title: 'Profile',
+      url: '/parent/profile',
+      icon: Users,
+    },
+    {
+      title: 'My Children',
+      url: '/parent/children',
+      icon: GraduationCap,
+    },
+    {
+      title: 'Announcements',
+      url: '/parent/announcements',
+      icon: Megaphone,
+    },
+  ],
+};
 
 const navByRole: Partial<Record<UserRole, NavConfig>> = {
   super_admin: adminNav,
   admin: adminNav,
   teacher: teacherNav,
+  parent: parentNav,
 };
 
 export function getNavConfig(role: UserRole): NavConfig {

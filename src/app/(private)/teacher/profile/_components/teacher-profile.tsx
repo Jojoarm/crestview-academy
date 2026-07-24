@@ -7,13 +7,14 @@ import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 
 import { cn, formatClassArmLabel, formatDate, getInitials } from '@/lib/utils';
-import { ApiError } from '@/lib/api-client';
 import { useTeacherProfile } from '@/hooks/teacher/use-teacher-profile';
 import { useTeacherClasses } from '@/hooks/teacher/use-classes';
 import { useTeacherSubjects } from '@/hooks/teacher/use-subjects';
 
 import { EditProfileSheet } from './edit-profile-sheet';
-import Image from 'next/image';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { EmptyMessage } from '@/components/EmptyMessage';
+import { DetailField } from '@/components/DetailField';
 
 export function TeacherProfileView() {
   const [editOpen, setEditOpen] = useState(false);
@@ -69,18 +70,17 @@ export function TeacherProfileView() {
       <Card className="p-5">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-4 min-w-0">
-            {profile.photoUrl ? (
-              <Image
-                src={profile.photoUrl}
+            <Avatar className="size-16 image-border shrink-0">
+              <AvatarImage
+                src={profile.photoUrl ?? undefined}
                 alt={profile.user.name}
-                className="size-16 rounded-full image-border object-cover shrink-0"
-                fill
+                className="object-cover"
               />
-            ) : (
-              <div className="size-16 rounded-full bg-deep-violet image-border text-primary-foreground flex items-center justify-center text-lg font-body font-medium shrink-0">
+              <AvatarFallback className="bg-deep-violet image-border text-primary-foreground text-lg font-body font-medium">
                 {getInitials(profile.user.name)}
-              </div>
-            )}
+              </AvatarFallback>
+            </Avatar>
+
             <div className="min-w-0">
               <h1 className="font-sans font-semibold text-xl text-foreground truncate">
                 {profile.user.name}
@@ -235,31 +235,4 @@ export function TeacherProfileView() {
       />
     </div>
   );
-}
-
-function DetailField({
-  label,
-  value,
-  className,
-}: {
-  label: string;
-  value: string | null | undefined;
-  className?: string;
-}) {
-  return (
-    <div className={className}>
-      <p className="text-xs text-muted-foreground font-semibold capitalize tracking-wide">
-        {label}
-      </p>
-      <p className="font-body text-sm text-foreground mt-0.5">
-        {value || <span className="text-muted-foreground">Not set</span>}
-      </p>
-    </div>
-  );
-}
-
-function EmptyMessage({ error }: { error: unknown }) {
-  const message =
-    error instanceof ApiError ? error.message : 'Something went wrong.';
-  return <p className="font-body text-sm text-muted-foreground">{message}</p>;
 }

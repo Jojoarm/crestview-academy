@@ -14,6 +14,14 @@ export function formatAmount(amount: string) {
   }).format(parseFloat(amount));
 }
 
+export function formatNaira(amount: number): string {
+  return new Intl.NumberFormat('en-NG', {
+    style: 'currency',
+    currency: 'NGN',
+    minimumFractionDigits: 2,
+  }).format(amount);
+}
+
 export function formatDate(dateString: string) {
   return new Date(dateString).toLocaleDateString('en-GB', {
     day: 'numeric',
@@ -67,3 +75,40 @@ export const ATTENDANCE_STATUS_COLORS: Record<AttendanceStatus, string> = {
   Late: 'bg-amber-100 text-amber-700',
   Excused: 'bg-light-violet text-deep-violet',
 };
+
+// Assignemnt due dates
+export function getDueStatus(dueDate: string): {
+  label: string;
+  className: string;
+} {
+  const due = new Date(dueDate);
+  const now = new Date();
+  const diffMs = due.getTime() - now.getTime();
+  const diffDays = Math.ceil(diffMs / (1000 * 60 * 60 * 24));
+
+  if (diffDays < 0) {
+    return {
+      label: 'Overdue',
+      className: 'bg-red-100 text-red-700',
+    };
+  }
+
+  if (diffDays === 0) {
+    return {
+      label: 'Due Today',
+      className: 'bg-orange-100 text-orange-700',
+    };
+  }
+
+  if (diffDays <= 3) {
+    return {
+      label: `Due in ${diffDays}d`,
+      className: 'bg-amber-100 text-amber-700',
+    };
+  }
+
+  return {
+    label: `Due in ${diffDays}d`,
+    className: 'bg-emerald-100 text-emerald-700',
+  };
+}

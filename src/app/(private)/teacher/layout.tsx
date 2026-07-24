@@ -5,7 +5,7 @@ import { getDashboardPathForRole } from '@/lib/roles';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 
-export default function StudentLayout({
+export default function TeacherLayout({
   children,
 }: {
   children: React.ReactNode;
