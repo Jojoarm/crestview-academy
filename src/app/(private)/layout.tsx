@@ -17,8 +17,6 @@ export default function PrivateLayout({
 
   const router = useRouter();
 
-  // console.log(user);
-
   useEffect(() => {
     if (isLoading) return;
 

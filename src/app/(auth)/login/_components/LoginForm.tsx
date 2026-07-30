@@ -13,6 +13,7 @@ import { apiClient, ApiError } from '@/lib/api-client';
 import { getDashboardPathForRole } from '@/lib/roles';
 import { CurrentUser } from '@/lib/types';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -30,6 +31,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export function LoginForm() {
   const router = useRouter();
+  const queryClient = useQueryClient();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { data: user, isLoading } = useCurrentUser();
 
@@ -68,14 +70,14 @@ export function LoginForm() {
 
       // Sign-in succeeded — now fetch our own profile to get userRole + forcePasswordChange
       const user = await apiClient.get<CurrentUser>('/api/profile/me');
+      queryClient.setQueryData(['current-user'], user);
 
       if (user.forcePasswordChange) {
-        router.push('/change-password');
+        router.push('/auth/change-password');
         return;
       }
 
       router.push(getDashboardPathForRole(user.userRole));
-      router.refresh();
     } catch (error) {
       const message =
         error instanceof ApiError

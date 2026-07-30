@@ -20,6 +20,7 @@ import {
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
 import { CurrentUser } from '@/lib/types';
+import { useQueryClient } from '@tanstack/react-query';
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -35,14 +36,15 @@ function getInitials(name: string) {
 export function NavUser({ user }: { user: CurrentUser }) {
   const { isMobile } = useSidebar();
   const router = useRouter();
+  const queryClient = useQueryClient();
 
   async function handleLogout() {
     await fetch(`${API_URL}/api/auth/sign-out`, {
       method: 'POST',
       credentials: 'include',
     });
+    queryClient.setQueryData(['current-user'], null);
     router.push('/login');
-    router.refresh();
   }
 
   return (
