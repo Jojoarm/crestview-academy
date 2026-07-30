@@ -1,7 +1,15 @@
 'use client';
 
 import { useState } from 'react';
-import { MoreHorizontal, Pencil, Trash2, Plus, Users, X } from 'lucide-react';
+import {
+  MoreHorizontal,
+  Pencil,
+  Trash2,
+  Plus,
+  Users,
+  X,
+  Eye,
+} from 'lucide-react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
@@ -18,6 +26,7 @@ import { ApiError } from '@/lib/api-client';
 import type { ClassLevel, ClassArm } from '@/types/class';
 import { AssignArmSheet } from './assign-arm-sheet';
 import { DeleteClassDialog } from './delete-class-dialog';
+import { useRouter } from 'next/navigation';
 
 type Props = {
   classLevel: ClassLevel;
@@ -32,6 +41,7 @@ const SECTION_COLORS: Record<string, string> = {
 };
 
 export function ClassCard({ classLevel, onEdit }: Props) {
+  const router = useRouter();
   const [assignSheetOpen, setAssignSheetOpen] = useState(false);
   const [editingArm, setEditingArm] = useState<ClassArm | null>(null);
   const [deleteOpen, setDeleteOpen] = useState(false);
@@ -95,8 +105,18 @@ export function ClassCard({ classLevel, onEdit }: Props) {
             </DropdownMenuTrigger>
             <DropdownMenuContent
               align="end"
-              className="bg-background border-border shadow-lg"
+              className="bg-background border-border shadow-lg w-42"
             >
+              <DropdownMenuItem
+                onClick={() =>
+                  router.push(`/admin/academics/classes/${classLevel.id}`)
+                }
+                className="font-body cursor-pointer"
+              >
+                <Eye className="size-4 text-violet" />
+                View class details
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
               <DropdownMenuItem
                 onClick={() => onEdit(classLevel)}
                 className="font-body cursor-pointer"

@@ -28,6 +28,7 @@ import { EnrollmentHistory } from './enrollment-history';
 import { LinkedParents } from './linked-parents';
 import { useEffect } from 'react';
 import { UserProfileHeader } from '../../../_components/UserProfileHeader';
+import { ReportCardLinkCard } from './report-card-link-card';
 
 const schema = z.object({
   gender: z.enum(['Male', 'Female']).optional(),
@@ -319,6 +320,7 @@ export function StudentProfile({ studentId }: { studentId: string }) {
             activeEnrollment={activeEnrollment}
           />
           <LinkedParents student={student} />
+          <ReportCardLinkCard studentId={studentId} />
         </div>
       </div>
     </div>

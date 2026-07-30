@@ -99,6 +99,35 @@ export function useTransferStudent(studentId: string) {
   });
 }
 
+export function usePromoteStudent(studentId: string) {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (input: { toSessionId: string; toClassArmId: string }) =>
+      apiClient.post(`/api/admin/students/${studentId}/promote`, input),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: studentKeys.all });
+    },
+  });
+}
+
+export function useBatchPromoteStudents() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: (input: {
+      toSessionId: string;
+      students: { studentId: string; toClassArmId: string }[];
+    }) =>
+      apiClient.post<{ promotedCount: number }>(
+        '/api/admin/students/promote-batch',
+        input,
+      ),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: studentKeys.all });
+      queryClient.invalidateQueries({ queryKey: ['class-arm-students'] });
+    },
+  });
+}
+
 export function useLinkParent(studentId: string) {
   const queryClient = useQueryClient();
   return useMutation({

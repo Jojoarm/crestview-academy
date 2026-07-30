@@ -35,3 +35,18 @@ export type ClassLevel = {
   createdAt: string;
   updatedAt: string;
 };
+
+export interface ClassArmStudent {
+  id: string; // this is the studentId
+  admissionNumber: string;
+  photoUrl: string | null;
+  user: { id: string; name: string };
+  enrollments: {
+    id: string;
+    classArm: {
+      id: string;
+      arm: { name: string };
+      classLevel: { name: string };
+    };
+  }[];
+}
