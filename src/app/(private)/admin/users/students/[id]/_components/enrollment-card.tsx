@@ -36,6 +36,7 @@ import { useClasses } from '@/hooks/admin/use-classes';
 import { ApiError } from '@/lib/api-client';
 import type { StudentEnrollment } from '@/types/profile';
 import type { ClassLevel } from '@/types/class';
+import { useAcademicSessions } from '@/hooks/shared/use-academic-session';
 
 type Props = {
   studentId: string;
@@ -48,11 +49,13 @@ export function EnrollmentCard({ studentId }: Props) {
   const [dialogMode, setDialogMode] = useState<DialogMode>(null);
   const [selectedClassId, setSelectedClassId] = useState('');
   const [selectedClassArmId, setSelectedClassArmId] = useState('');
+  const [selectedSessionId, setSelectedSessionId] = useState('');
 
   const enrollStudent = useEnrollStudent(studentId);
   const transferStudent = useTransferStudent(studentId);
   const promoteStudent = usePromoteStudent(studentId);
   const { data: classesData } = useClasses();
+  const { data: sessions } = useAcademicSessions();
   const { data: activeSession, isLoading: activeSessionLoading } =
     useActiveSession();
   const { data: fullHistory, isLoading: historyLoading } =
@@ -115,6 +118,7 @@ export function EnrollmentCard({ studentId }: Props) {
     setDialogMode(null);
     setSelectedClassId('');
     setSelectedClassArmId('');
+    setSelectedSessionId('');
   }
 
   function openSwitchDialog() {
@@ -125,6 +129,18 @@ export function EnrollmentCard({ studentId }: Props) {
     );
     setSelectedClassArmId('');
     setDialogMode('switch');
+  }
+
+  function openPromoteDialog() {
+    setSelectedClassId('');
+    setSelectedClassArmId('');
+    setSelectedSessionId(activeSession?.id ?? '');
+    setDialogMode('promote');
+  }
+
+  function openRepeatDialog() {
+    setSelectedSessionId(activeSession?.id ?? '');
+    setDialogMode('repeat');
   }
 
   async function handleSubmit() {
@@ -138,16 +154,16 @@ export function EnrollmentCard({ studentId }: Props) {
         await enrollStudent.mutateAsync(selectedClassArmId);
         toast.success('Student enrolled successfully');
       } else if (dialogMode === 'promote') {
-        if (!selectedClassArmId || !activeSession) return;
+        if (!selectedClassArmId || !selectedSessionId) return;
         await promoteStudent.mutateAsync({
-          toSessionId: activeSession.id,
+          toSessionId: selectedSessionId,
           toClassArmId: selectedClassArmId,
         });
         toast.success('Student promoted successfully');
       } else if (dialogMode === 'repeat') {
-        if (!mostRecentEnrollment || !activeSession) return;
+        if (!mostRecentEnrollment || !selectedSessionId) return;
         await promoteStudent.mutateAsync({
-          toSessionId: activeSession.id,
+          toSessionId: selectedSessionId,
           toClassArmId: mostRecentEnrollment.classArm.id,
         });
         toast.success('Student re-enrolled in the same class');
@@ -207,7 +223,7 @@ export function EnrollmentCard({ studentId }: Props) {
                 Switch Arms
               </Button>
               <Button
-                onClick={() => setDialogMode('promote')}
+                onClick={openPromoteDialog}
                 className="bg-primary hover:bg-accent text-primary-foreground font-body gap-1.5 flex-1"
               >
                 <TrendingUp className="size-3.5" />
@@ -248,7 +264,7 @@ export function EnrollmentCard({ studentId }: Props) {
             </p>
             <div className="flex flex-col gap-2 sm:flex-row">
               <Button
-                onClick={() => setDialogMode('promote')}
+                onClick={openPromoteDialog}
                 className="bg-primary hover:bg-accent text-primary-foreground font-body gap-1.5 flex-1"
               >
                 <TrendingUp className="size-3.5" />
@@ -256,7 +272,7 @@ export function EnrollmentCard({ studentId }: Props) {
               </Button>
               <Button
                 variant="outline"
-                onClick={() => setDialogMode('repeat')}
+                onClick={openRepeatDialog}
                 className="border-border font-body gap-1.5 flex-1"
               >
                 <RotateCcw className="size-3.5" />
@@ -295,11 +311,40 @@ export function EnrollmentCard({ studentId }: Props) {
               {dialogMode === 'enroll' &&
                 'Select the class and arm to enroll this student.'}
               {dialogMode === 'promote' &&
-                `Select the class and arm to promote this student into for ${activeSession?.name ?? 'the current session'}.`}
+                `Select the class and arm to promote this student into for ${
+                  sessions?.find((s) => s.id === selectedSessionId)?.name ??
+                  'the selected session'
+                }.`}
               {dialogMode === 'repeat' &&
-                `This will re-enroll the student in ${mostRecentEnrollment?.classArm.classLevel.name} — Arm ${mostRecentEnrollment?.classArm.arm.name} for ${activeSession?.name ?? 'the current session'}.`}
+                `This will re-enroll the student in ${mostRecentEnrollment?.classArm.classLevel.name} — Arm ${mostRecentEnrollment?.classArm.arm.name} for ${
+                  sessions?.find((s) => s.id === selectedSessionId)?.name ??
+                  'the selected session'
+                }.`}
             </DialogDescription>
           </DialogHeader>
+
+          {(dialogMode === 'promote' || dialogMode === 'repeat') && (
+            <Select
+              value={selectedSessionId}
+              onValueChange={setSelectedSessionId}
+            >
+              <SelectTrigger className="border-border focus:ring-primary h-11 font-body">
+                <SelectValue placeholder="Select target session" />
+              </SelectTrigger>
+              <SelectContent className="bg-background border-border shadow-lg">
+                {sessions?.map((s) => (
+                  <SelectItem key={s.id} value={s.id} className="font-body">
+                    {s.name}
+                    {s.id === activeSession?.id && (
+                      <span className="text-muted-foreground ml-1 text-xs">
+                        (active)
+                      </span>
+                    )}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          )}
 
           <div className="flex flex-col gap-4 mt-2">
             {dialogMode === 'switch' && (
@@ -416,7 +461,7 @@ export function EnrollmentCard({ studentId }: Props) {
                   isPending ||
                   (dialogMode !== 'repeat' && !selectedClassArmId) ||
                   ((dialogMode === 'promote' || dialogMode === 'repeat') &&
-                    !activeSession)
+                    !selectedSessionId)
                 }
                 className="bg-primary hover:bg-accent text-primary-foreground font-body"
               >
