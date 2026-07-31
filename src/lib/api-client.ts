@@ -29,6 +29,9 @@ type RequestOptions = {
   cache?: RequestCache;
 };
 
+// Only used server-side now — browser calls go through the Next.js
+// rewrite (see next.config.ts) as relative paths to stay same-origin,
+// which avoids Safari/iOS blocking the session cookie as third-party.
 const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 async function request<T>(
@@ -39,13 +42,19 @@ async function request<T>(
 
   const isServer = typeof window === 'undefined';
 
-  const res = await fetch(`${API_URL}${path}`, {
+  // Server: absolute URL straight to Render — no browser involved, cookies
+  // are already forwarded manually via the Cookie header below.
+  // Browser: relative path, goes through the Next.js rewrite, stays
+  // same-origin so the session cookie is treated as first-party.
+  const url = isServer ? `${API_URL}${path}` : path;
+
+  const res = await fetch(url, {
     method,
     headers: {
       'Content-Type': 'application/json',
       ...(isServer && cookieHeader ? { Cookie: cookieHeader } : {}),
     },
-    // Browser-side: send the session cookie cross-origin.
+    // Browser-side: send the session cookie (now same-origin).
     // Server-side: cookies are forwarded manually via the Cookie header above.
     credentials: 'include',
     cache,

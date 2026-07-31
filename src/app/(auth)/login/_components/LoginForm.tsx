@@ -27,7 +27,7 @@ const loginSchema = z.object({
 
 type LoginValues = z.infer<typeof loginSchema>;
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+// const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 export function LoginForm() {
   const router = useRouter();
@@ -54,7 +54,16 @@ export function LoginForm() {
     setIsSubmitting(true);
 
     try {
-      const res = await fetch(`${API_URL}/api/auth/sign-in/email`, {
+      // const res = await fetch(`${API_URL}/api/auth/sign-in/email`, {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   credentials: 'include',
+      //   body: JSON.stringify(values),
+      // });
+
+      const res = await fetch('/api/auth/sign-in/email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
