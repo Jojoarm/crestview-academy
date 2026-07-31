@@ -97,6 +97,7 @@
 
   --muted: var(--warm-white-dark);
   --muted-foreground: var(--charcoal-100);
+  --sidebar: var(--warm-white-dark);
 
   --border: var(--border-sand);
   --input: var(--border-sand);
